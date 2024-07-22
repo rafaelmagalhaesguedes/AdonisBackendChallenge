@@ -1,0 +1,18 @@
+{
+  "shared": {
+    "fields": {
+      "email": "email",
+      "password": "password",
+      "fullName": "full name"
+    },
+    "messages": {
+      "required": "Enter {field}",
+      "email.email": "The email must be valid",
+      "password.minLength": "The password must be at least 6 characters long",
+      "password.maxLength": "The password must be at most 32 characters long",
+      "fullName.minLength": "The full name must be at least 3 characters long",
+      "fullName.maxLength": "The full name must be at most 64 characters long",
+      "database.unique": "The email is already taken"
+    }
+  }
+}

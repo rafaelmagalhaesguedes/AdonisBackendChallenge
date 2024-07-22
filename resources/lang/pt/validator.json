@@ -1,0 +1,18 @@
+{
+  "shared": {
+    "fields": {
+      "email": "email",
+      "password": "senha",
+      "fullName": "nome completo"
+    },
+    "messages": {
+      "required": "Digite {field}",
+      "email.email": "O email deve ser válido",
+      "password.minLength": "A senha deve ter pelo menos 6 caracteres",
+      "password.maxLength": "A senha deve ter no máximo 32 caracteres",
+      "fullName.minLength": "O nome completo deve ter pelo menos 3 caracteres",
+      "fullName.maxLength": "O nome completo deve ter no máximo 64 caracteres",
+      "database.unique": "O email já está em uso"
+    }
+  }
+}
