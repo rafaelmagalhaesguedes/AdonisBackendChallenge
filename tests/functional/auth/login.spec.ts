@@ -19,4 +19,13 @@ test.group('login tests', () => {
 
     response.assertStatus(400)
   })
+
+  test('login with invalid data', async ({ client }) => {
+    const response = await client.post('/auth/login').json({
+      email: 'wrong-email',
+      password: '123',
+    })
+
+    response.assertStatus(422)
+  })
 })
