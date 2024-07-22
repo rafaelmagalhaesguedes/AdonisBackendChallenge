@@ -1,0 +1,22 @@
+import { test } from '@japa/runner'
+
+test.group('login tests', () => {
+  test('login with valid credentials', async ({ client, assert }) => {
+    const response = await client.post('/auth/login').json({
+      email: 'user@user.com',
+      password: 'secret_user',
+    })
+
+    response.assertStatus(200)
+    assert.exists(response.body().token)
+  })
+
+  test('login with invalid credentials', async ({ client }) => {
+    const response = await client.post('/auth/login').json({
+      email: 'user@user.com',
+      password: 'secret_user_wrong',
+    })
+
+    response.assertStatus(400)
+  })
+})
