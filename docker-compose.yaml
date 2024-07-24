@@ -2,16 +2,16 @@ version: '3.9'
 
 services:
 
-  mysql:
+  database:
     container_name: mysql
     image: mysql:5.7
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: database
+      MYSQL_DATABASE: sales_db
     ports:
       - '3306:3306'
     volumes:
-      - mysql_data:/var/lib/mysql/data
+      - db-data:/var/lib/mysql
 
 volumes:
-  mysql_data:
+  db-data:
