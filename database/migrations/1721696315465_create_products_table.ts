@@ -12,9 +12,7 @@ export default class extends BaseSchema {
       table.string('category').notNullable()
       table.integer('stock').unsigned().notNullable()
       table.string('image').nullable()
-
-      table.timestamp('created_at', { useTz: true }).defaultTo(this.now())
-      table.timestamp('updated_at', { useTz: true }).defaultTo(this.now())
+      table.timestamps(true, true)
       table.timestamp('deleted_at', { useTz: true }).nullable()
     })
   }
