@@ -1,6 +1,6 @@
 import { test } from '@japa/runner'
 
-test.group('login tests', () => {
+test.group('Auth login tests', () => {
   test('login with valid credentials', async ({ client, assert }) => {
     const response = await client.post('/auth/login').json({
       email: 'user@user.com',
@@ -8,6 +8,7 @@ test.group('login tests', () => {
     })
 
     response.assertStatus(200)
+    assert.equal(response.body().message, 'Login successful.')
     assert.exists(response.body().token)
   })
 
