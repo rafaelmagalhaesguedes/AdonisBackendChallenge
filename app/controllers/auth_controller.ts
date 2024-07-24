@@ -22,7 +22,7 @@ export default class AuthController {
 
     return response.ok({
       message: i18n.t('auth.login.success'),
-      token: token,
+      token,
       ...user.serialize(),
     })
   }
