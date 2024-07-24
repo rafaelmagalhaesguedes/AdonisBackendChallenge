@@ -1,0 +1,20 @@
+{
+  "list": {
+    "success": "Products retrieved successfully."
+  },
+  "create": {
+    "success": "Product registered successfully."
+  },
+  "detail": {
+    "success": "Product details retrieved successfully."
+  },
+  "update": {
+    "success": "Product updated successfully."
+  },
+  "delete": {
+    "success": "Product removed successfully."
+  },
+  "error": {
+    "not_found": "Product not found."
+  }
+}

@@ -1,18 +1,43 @@
 {
   "shared": {
     "fields": {
+      "auth_fields": "Campos de autenticação",
       "email": "email",
       "password": "senha",
-      "fullName": "nome completo"
+      "fullName": "nome completo",
+
+      "product_fiels": "Campos do produto",
+      "name": "nome",
+      "description": "descrição",
+      "price": "preço",
+      "category": "categoria",
+      "stock": "estoque",
+      "imageUrl": "URL da imagem"
     },
     "messages": {
-      "required": "Digite {field}",
+      "required": "Digite o campo {field}",
+  
+      "auth_messages": "Mensagens para autenticação",
       "email.email": "O email deve ser válido",
       "password.minLength": "A senha deve ter pelo menos 6 caracteres",
       "password.maxLength": "A senha deve ter no máximo 32 caracteres",
       "fullName.minLength": "O nome completo deve ter pelo menos 3 caracteres",
       "fullName.maxLength": "O nome completo deve ter no máximo 64 caracteres",
-      "database.unique": "O email já está em uso"
+      "database.unique": "O email já está em uso",
+
+      "product_messages": "Mensagens para produto",
+      "name.minLength": "O nome deve ter pelo menos 3 caracteres",
+      "name.maxLength": "O nome deve ter no máximo 255 caracteres",
+      "description.minLength": "A descrição deve ter pelo menos 3 caracteres",
+      "description.maxLength": "A descrição deve ter no máximo 255 caracteres",
+      "price.min": "O preço deve ser pelo menos 0",
+      "price.number": "O preço deve ser um número",
+      "category.minLength": "A categoria deve ter pelo menos 3 caracteres",
+      "category.maxLength": "A categoria deve ter no máximo 255 caracteres",
+      "stock.min": "O estoque deve ser pelo menos 0",
+      "stock.number": "O estoque deve ser um número",
+      "imageUrl.minLength": "A URL da imagem deve ter pelo menos 3 caracteres",
+      "imageUrl.maxLength": "A URL da imagem deve ter no máximo 255 caracteres"
     }
   }
 }
