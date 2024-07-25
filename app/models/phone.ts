@@ -9,12 +9,6 @@ export default class Phone extends BaseModel {
   declare customerId: number
 
   @column()
-  declare countryCode: string
-
-  @column()
-  declare areaCode: string
-
-  @column()
   declare number: string
 
   @column()
