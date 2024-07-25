@@ -1,0 +1,20 @@
+{
+  "list": {
+    "success": "Clientes recuperados com sucesso."
+  },
+  "create": {
+    "success": "Cliente registrado com sucesso."
+  },
+  "detail": {
+    "success": "Detalhes do cliente recuperados com sucesso."
+  },
+  "update": {
+    "success": "Cliente atualizado com sucesso."
+  },
+  "delete": {
+    "success": "Cliente removido com sucesso."
+  },
+  "error": {
+    "not_found": "Cliente não encontrado."
+  }
+}

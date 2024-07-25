@@ -1,0 +1,20 @@
+{
+  "list": {
+    "success": "Customers retrieved successfully."
+  },
+  "create": {
+    "success": "Customer registered successfully."
+  },
+  "detail": {
+    "success": "Customer details retrieved successfully."
+  },
+  "update": {
+    "success": "Customer updated successfully."
+  },
+  "delete": {
+    "success": "Customer removed successfully."
+  },
+  "error": {
+    "not_found": "Customer not found."
+  }
+}

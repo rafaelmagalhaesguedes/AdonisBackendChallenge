@@ -1,23 +1,22 @@
 {
   "shared": {
     "fields": {
-      "auth_fields": "Campos de autenticação",
       "email": "email",
       "password": "senha",
       "fullName": "nome completo",
 
-      "product_fiels": "Campos do produto",
       "name": "nome",
       "description": "descrição",
       "price": "preço",
       "category": "categoria",
       "stock": "estoque",
-      "imageUrl": "URL da imagem"
+      "imageUrl": "URL da imagem",
+
+      "cpf": "CPF"
     },
     "messages": {
       "required": "Digite o campo {field}",
   
-      "auth_messages": "Mensagens para autenticação",
       "email.email": "O email deve ser válido",
       "password.minLength": "A senha deve ter pelo menos 6 caracteres",
       "password.maxLength": "A senha deve ter no máximo 32 caracteres",
@@ -25,7 +24,6 @@
       "fullName.maxLength": "O nome completo deve ter no máximo 64 caracteres",
       "database.unique": "O email já está em uso",
 
-      "product_messages": "Mensagens para produto",
       "name.minLength": "O nome deve ter pelo menos 3 caracteres",
       "name.maxLength": "O nome deve ter no máximo 255 caracteres",
       "description.minLength": "A descrição deve ter pelo menos 3 caracteres",
@@ -37,7 +35,16 @@
       "stock.min": "O estoque deve ser pelo menos 0",
       "stock.number": "O estoque deve ser um número",
       "imageUrl.minLength": "A URL da imagem deve ter pelo menos 3 caracteres",
-      "imageUrl.maxLength": "A URL da imagem deve ter no máximo 255 caracteres"
+      "imageUrl.maxLength": "A URL da imagem deve ter no máximo 255 caracteres",
+      
+      "cpf.minLength": "O CPF deve ter pelo menos 11 caracteres",
+      "cpf.maxLength": "O CPF deve ter no máximo 14 caracteres",
+      "cpf.unique": "O CPF já está em uso",
+      "cpf.number": "O CPF deve ser um número",
+      "cpf.invalid": "O CPF é inválido",
+      "cpf.digits": "O CPF deve ter 11 dígitos",
+      "cpf.exists": "O CPF não existe",
+      "cpf.regex": "O CPF deve ser válido"
     }
   }
 }

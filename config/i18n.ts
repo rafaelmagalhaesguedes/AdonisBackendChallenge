@@ -4,7 +4,7 @@ import { defineConfig, formatters, loaders } from '@adonisjs/i18n'
 const i18nConfig = defineConfig({
   formatter: formatters.icu(),
   defaultLocale: 'en',
-  supportedLocales: ['en', 'pt', 'es'],
+  supportedLocales: ['en', 'pt'],
 
   loaders: [
     loaders.fs({
