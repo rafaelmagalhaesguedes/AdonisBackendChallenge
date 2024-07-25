@@ -1,18 +1,23 @@
-import Product from '#models/product'
-import { createValidator, updateValidator } from '#validators/product'
-import type { HttpContext } from '@adonisjs/core/http'
 import { DateTime } from 'luxon'
+import Product from '#models/product'
+import type { HttpContext } from '@adonisjs/core/http'
+import { createValidator, updateValidator } from '#validators/product'
 
 export default class ProductsController {
-  async index({ response, i18n }: HttpContext) {
+  async index({ response, request, i18n }: HttpContext) {
+    const page = request.input('page', 1)
+    const limit = request.input('limit', 10)
+
     const products = await Product.query()
       .select('id', 'name', 'description', 'price', 'category', 'stock')
       .whereNull('deletedAt')
       .orderBy('name', 'asc')
+      .paginate(page, limit)
+      .then((pagination) => pagination.toJSON())
 
     return response.ok({
       message: i18n.t('product.list.success'),
-      products,
+      products: products.data,
     })
   }
 
@@ -31,11 +36,7 @@ export default class ProductsController {
       .where('id', params.id)
       .whereNull('deletedAt')
       .select('id', 'name', 'description', 'price', 'category', 'stock', 'image')
-      .first()
-
-    if (!product) {
-      return response.notFound({ error: { message: i18n.t('product.error.not_found') } })
-    }
+      .firstOrFail()
 
     return response.ok({
       message: i18n.t('product.detail.success'),
@@ -53,6 +54,7 @@ export default class ProductsController {
 
     product.merge(payload)
     await product.save()
+    product.refresh()
 
     const { id, name, description, price, category, stock, image } = product
 
@@ -72,11 +74,6 @@ export default class ProductsController {
     product.deletedAt = DateTime.fromJSDate(new Date())
     await product.save()
 
-    const { id, name, description, price, category, stock, image } = product
-
-    return response.ok({
-      message: i18n.t('product.delete.success'),
-      product: { id, name, description, price, category, stock, image },
-    })
+    return response.ok({ message: i18n.t('product.delete.success') })
   }
 }

@@ -3,6 +3,8 @@ import { loginAndGetToken } from '#tests/factories/auth_factory'
 import { test } from '@japa/runner'
 
 test.group('Product delete tests', (group) => {
+  const endpoint = '/products/delete'
+  const successMessage = 'Product removed successfully.'
   let productId: number
 
   group.setup(async () => {
@@ -14,15 +16,15 @@ test.group('Product delete tests', (group) => {
     const token = await loginAndGetToken(client)
 
     const response = await client
-      .delete(`/products/delete/${productId}`)
+      .delete(`${endpoint}/${productId}`)
       .header('Authorization', `Bearer ${token}`)
 
     response.assertStatus(200)
-    assert.equal(response.body().message, 'Product removed successfully.')
+    assert.equal(response.body().message, successMessage)
   })
 
   test('delete a product without authentication', async ({ client }) => {
-    const response = await client.delete(`/products/delete/${productId}`)
+    const response = await client.delete(`${endpoint}/${productId}`)
 
     response.assertStatus(401)
   })
@@ -31,7 +33,7 @@ test.group('Product delete tests', (group) => {
     const token = await loginAndGetToken(client)
 
     const response = await client
-      .delete(`/products/delete/99999999`)
+      .delete(`${endpoint}/99999999`)
       .header('Authorization', `Bearer ${token}`)
 
     response.assertStatus(404)
@@ -41,7 +43,7 @@ test.group('Product delete tests', (group) => {
     const token = await loginAndGetToken(client)
 
     const response = await client
-      .delete(`/products/delete/invalid_id`)
+      .delete(`${endpoint}/invalid_id`)
       .header('Authorization', `Bearer ${token}`)
 
     response.assertStatus(404)

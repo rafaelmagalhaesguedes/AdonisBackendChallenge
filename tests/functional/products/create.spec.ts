@@ -4,6 +4,7 @@ import { mockInvalidProductData, mockProductData } from '#tests/mocks/mock_produ
 
 test.group('Product create tests', () => {
   const endpoint = '/products/create'
+  const successMessage = 'Product registered successfully.'
 
   test('create a new product successfully', async ({ client, assert }) => {
     const token = await loginAndGetToken(client)
@@ -14,7 +15,7 @@ test.group('Product create tests', () => {
       .json(mockProductData)
 
     response.assertStatus(201)
-    assert.equal(response.body().message, 'Product registered successfully.')
+    assert.equal(response.body().message, successMessage)
     assert.exists(response.body().product)
   })
 
