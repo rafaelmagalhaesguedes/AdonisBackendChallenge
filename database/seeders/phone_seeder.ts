@@ -6,17 +6,33 @@ export default class PhoneSeeder extends BaseSeeder {
     await Phone.createMany([
       {
         customerId: 1,
-        countryCode: '+1',
-        areaCode: '202',
-        number: '5551234',
+        number: '55 00 999888 1233',
         type: 'Mobile',
       },
       {
+        customerId: 1,
+        number: '55 00 999888 1234',
+        type: 'Work',
+      },
+      {
         customerId: 2,
-        countryCode: '+1',
-        areaCode: '303',
-        number: '5555678',
+        number: '55 00 999773 1234',
         type: 'Home',
+      },
+      {
+        customerId: 2,
+        number: '55 00 999773 1234',
+        type: 'Mobile',
+      },
+      {
+        customerId: 3,
+        number: '55 00 999773 1234',
+        type: 'Work',
+      },
+      {
+        customerId: 4,
+        number: '55 00 999773 1234',
+        type: 'Mobile',
       },
     ])
   }
