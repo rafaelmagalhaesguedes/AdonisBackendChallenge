@@ -8,8 +8,8 @@ export const mockProductData = {
 }
 
 export const mockInvalidProductData = {
-  name: 'New Product',
-  description: 'A new product description',
+  name: 'aa',
+  description: 'a',
   price: 'invalid-price',
   stock: 100,
   category: 'Electronics',
