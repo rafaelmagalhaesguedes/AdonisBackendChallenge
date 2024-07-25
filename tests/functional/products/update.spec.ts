@@ -1,6 +1,6 @@
 import { loginAndGetToken } from '#tests/factories/auth_factory'
-import { mockProductData } from '#tests/mocks/mock_products'
-import { ProductFactory } from '#database/factories/product'
+import { mockInvalidProductData, mockProductData } from '#tests/mocks/mock_products'
+import { ProductFactory } from '#database/factories/product_factory'
 import { test } from '@japa/runner'
 
 test.group('Product update tests', (group) => {
@@ -30,7 +30,7 @@ test.group('Product update tests', (group) => {
     const response = await client
       .patch(`/products/update/${productId}`)
       .header('Authorization', `Bearer ${token}`)
-      .json({})
+      .json(mockInvalidProductData)
 
     response.assertStatus(422)
   })

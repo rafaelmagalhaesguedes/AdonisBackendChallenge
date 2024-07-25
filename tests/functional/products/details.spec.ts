@@ -1,4 +1,4 @@
-import { ProductFactory } from '#database/factories/product'
+import { ProductFactory } from '#database/factories/product_factory'
 import { loginAndGetToken } from '#tests/factories/auth_factory'
 import { test } from '@japa/runner'
 
