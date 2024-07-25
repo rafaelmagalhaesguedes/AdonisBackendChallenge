@@ -8,6 +8,7 @@ export default class extends BaseSchema {
       table.increments('id')
       table.string('name', 255).notNullable()
       table.string('cpf', 14).notNullable().unique()
+      table.string('email', 255).notNullable().unique()
       table.timestamps(true, true)
     })
   }

@@ -1,7 +1,7 @@
-import { DateTime } from 'luxon'
 import { BaseModel, column, hasMany, hasOne } from '@adonisjs/lucid/orm'
-import Address from './address.js'
 import type { HasMany, HasOne } from '@adonisjs/lucid/types/relations'
+import Address from './address.js'
+import { DateTime } from 'luxon'
 import Phone from './phone.js'
 import Sale from './sale.js'
 
@@ -13,13 +13,16 @@ export default class Customer extends BaseModel {
   declare name: string
 
   @column()
-  declare cpf: string
+  declare email: string
 
-  @hasOne(() => Address)
-  declare addresses: HasOne<typeof Address>
+  @column()
+  declare cpf: string
 
   @hasMany(() => Phone)
   declare phones: HasMany<typeof Phone>
+
+  @hasOne(() => Address)
+  declare addresses: HasOne<typeof Address>
 
   @hasMany(() => Sale)
   declare sales: HasMany<typeof Sale>
