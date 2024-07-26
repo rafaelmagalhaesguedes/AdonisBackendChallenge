@@ -20,7 +20,7 @@ export default class extends BaseSchema {
         .onDelete('CASCADE')
       table.integer('quantity').notNullable()
       table.decimal('unit_price', 10, 2).notNullable()
-      table.decimal('total_price', 10, 2).notNullable()
+      table.decimal('total_amount', 10, 2).notNullable()
       table.timestamps(true, true)
     })
   }

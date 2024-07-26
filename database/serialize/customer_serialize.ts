@@ -10,16 +10,25 @@ export function serializeCustomer(customer: Customer) {
     fields: ['id', 'name', 'email', 'cpf'],
     relations: {
       addresses: {
-        fields: ['id', 'street', 'city', 'state'],
+        fields: [
+          'street',
+          'number',
+          'complement',
+          'neighborhood',
+          'city',
+          'state',
+          'zipCode',
+          'country',
+        ],
       },
       phones: {
-        fields: ['id', 'number', 'type'],
+        fields: ['number', 'type'],
       },
       sales: {
-        fields: ['id', 'quantity', 'unitPrice', 'totalPrice', 'createdAt'],
+        fields: ['quantity', 'unitPrice', 'totalAmount', 'createdAt'],
         relations: {
           product: {
-            fields: ['id', 'name', 'description', 'price'],
+            fields: ['name', 'description', 'price'],
           },
         },
       },

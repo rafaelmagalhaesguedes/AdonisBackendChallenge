@@ -1,11 +1,13 @@
-import router from '@adonisjs/core/services/router'
 import { middleware } from './kernel.js'
+import router from '@adonisjs/core/services/router'
 
 const AuthController = () => import('#controllers/auth_controller')
 
 const ProductsController = () => import('#controllers/products_controller')
 
 const CustomersController = () => import('#controllers/customers_controller')
+
+const SalesController = () => import('#controllers/sales_controller')
 
 router
   .group(() => {
@@ -34,3 +36,9 @@ router
     router.delete('delete/:id', [CustomersController, 'destroy']).use(middleware.auth())
   })
   .prefix('customers')
+
+router
+  .group(() => {
+    router.post('create', [SalesController, 'store']).use(middleware.auth())
+  })
+  .prefix('sales')

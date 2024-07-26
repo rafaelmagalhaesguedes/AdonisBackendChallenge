@@ -20,7 +20,10 @@ export default class Sale extends BaseModel {
   declare unitPrice: number
 
   @column()
-  declare totalPrice: number
+  declare totalAmount: number
+
+  @column()
+  declare paymentMethod: string
 
   @belongsTo(() => Product)
   declare product: BelongsTo<typeof Product>
