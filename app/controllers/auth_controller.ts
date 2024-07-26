@@ -1,6 +1,6 @@
 import User from '#models/user'
-import { loginValidator, registerValidator } from '#validators/auth'
 import { HttpContext } from '@adonisjs/core/http'
+import { loginValidator, registerValidator } from '#validators/auth'
 
 export default class AuthController {
   async register({ request, response, i18n }: HttpContext) {
@@ -9,7 +9,7 @@ export default class AuthController {
     const user = await User.create(payload)
 
     return response.created({
-      message: i18n.t('auth.register.success'),
+      message: i18n.t('auth_messages.register.success'),
       user,
     })
   }
@@ -21,7 +21,7 @@ export default class AuthController {
     const token = await User.accessTokens.create(user)
 
     return response.ok({
-      message: i18n.t('auth.login.success'),
+      message: i18n.t('auth_messages.login.success'),
       token,
       ...user.serialize(),
     })
@@ -32,14 +32,14 @@ export default class AuthController {
     const token = auth.user?.currentAccessToken.identifier
     if (!token) {
       return response.badRequest({
-        message: i18n.t('auth.logout.token_not_found'),
+        message: i18n.t('auth_messages.logout.token_not_found'),
       })
     }
 
     await User.accessTokens.delete(user, token)
 
     return response.ok({
-      message: i18n.t('auth.logout.success'),
+      message: i18n.t('auth_messages.logout.success'),
     })
   }
 }

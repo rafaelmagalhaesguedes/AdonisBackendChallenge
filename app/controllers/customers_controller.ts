@@ -15,7 +15,7 @@ export default class CustomersController {
       .then((pagination) => pagination.toJSON())
 
     return response.ok({
-      message: i18n.t('customer.list.success'),
+      message: i18n.t('customer_messages.list.success'),
       customers: customers.data,
     })
   }
@@ -25,7 +25,7 @@ export default class CustomersController {
     const { id, name, email, cpf } = await Customer.create(payload)
 
     return response.created({
-      message: i18n.t('customer.create.success'),
+      message: i18n.t('customer_messages.create.success'),
       customer: { id, name, email, cpf },
     })
   }
@@ -51,7 +51,7 @@ export default class CustomersController {
     const serializedCustomer = serializeCustomer(customer)
 
     return response.ok({
-      message: i18n.t('customer.detail.success'),
+      message: i18n.t('customer_messages.detail.success'),
       customer: serializedCustomer,
     })
   }
@@ -67,7 +67,7 @@ export default class CustomersController {
     const { id, name, email, cpf } = customer
 
     return response.ok({
-      message: i18n.t('customer.update.success'),
+      message: i18n.t('customer_messages.update.success'),
       customer: { id, name, email, cpf },
     })
   }
@@ -81,6 +81,6 @@ export default class CustomersController {
     // Delete the customer
     await customer.delete()
 
-    return response.ok({ message: i18n.t('customer.delete.success') })
+    return response.ok({ message: i18n.t('customer_messages.delete.success') })
   }
 }

@@ -16,7 +16,7 @@ export default class ProductsController {
       .then((pagination) => pagination.toJSON())
 
     return response.ok({
-      message: i18n.t('product.list.success'),
+      message: i18n.t('product_messages.list.success'),
       products: products.data,
     })
   }
@@ -26,7 +26,7 @@ export default class ProductsController {
     const { id, name, description, price, category, stock, image } = await Product.create(payload)
 
     return response.created({
-      message: i18n.t('product.create.success'),
+      message: i18n.t('product_messages.create.success'),
       product: { id, name, description, price, category, stock, image },
     })
   }
@@ -39,7 +39,7 @@ export default class ProductsController {
       .firstOrFail()
 
     return response.ok({
-      message: i18n.t('product.detail.success'),
+      message: i18n.t('product_messages.detail.success'),
       product,
     })
   }
@@ -49,7 +49,7 @@ export default class ProductsController {
     const payload = await request.validateUsing(updateValidator)
 
     if (product.deletedAt !== null) {
-      return response.badRequest({ error: { message: i18n.t('product.error.not_found') } })
+      return response.badRequest({ error: { message: i18n.t('product_messages.error.not_found') } })
     }
 
     product.merge(payload)
@@ -59,7 +59,7 @@ export default class ProductsController {
     const { id, name, description, price, category, stock, image } = product
 
     return response.ok({
-      message: i18n.t('product.update.success'),
+      message: i18n.t('product_messages.update.success'),
       product: { id, name, description, price, category, stock, image },
     })
   }
@@ -68,12 +68,12 @@ export default class ProductsController {
     const product = await Product.findOrFail(params.id)
 
     if (product.deletedAt !== null) {
-      return response.badRequest({ error: { message: i18n.t('product.error.not_found') } })
+      return response.badRequest({ error: { message: i18n.t('product_messages.error.not_found') } })
     }
 
     product.deletedAt = DateTime.fromJSDate(new Date())
     await product.save()
 
-    return response.ok({ message: i18n.t('product.delete.success') })
+    return response.ok({ message: i18n.t('product_messages.delete.success') })
   }
 }

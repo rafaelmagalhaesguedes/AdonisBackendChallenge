@@ -1,0 +1,21 @@
+{
+  "list": {
+    "success": "Sales retrieved successfully."
+  },
+  "create": {
+    "success": "Sale registered successfully."
+  },
+  "detail": {
+    "success": "Sale details retrieved successfully."
+  },
+  "update": {
+    "success": "Sale updated successfully."
+  },
+  "delete": {
+    "success": "Sale removed successfully."
+  },
+  "error": {
+    "not_found": "Sale not found.",
+    "internal_error": "An internal error occurred while processing the request."
+  }
+}

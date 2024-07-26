@@ -1,0 +1,21 @@
+{
+  "list": {
+    "success": "Vendas recuperadas com sucesso."
+  },
+  "create": {
+    "success": "Venda registrada com sucesso."
+  },
+  "detail": {
+    "success": "Detalhes da venda recuperados com sucesso."
+  },
+  "update": {
+    "success": "Venda atualizada com sucesso."
+  },
+  "delete": {
+    "success": "Venda removida com sucesso."
+  },
+  "error": {
+    "not_found": "Venda não encontrada.",
+    "internal_error": "Ocorreu um erro interno ao processar a solicitação."
+  }
+}
