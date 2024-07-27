@@ -17,17 +17,20 @@ export default class ProductsController {
 
     return response.ok({
       message: i18n.t('product_messages.list.success'),
+      paginate: products.meta,
       products: products.data,
     })
   }
 
   async store({ request, response, i18n }: HttpContext) {
     const payload = await request.validateUsing(createValidator)
-    const { id, name, description, price, category, stock, image } = await Product.create(payload)
+    const product = await Product.create(payload)
+
+    const { id, name, description, price, category, stock, image, createdAt } = product
 
     return response.created({
       message: i18n.t('product_messages.create.success'),
-      product: { id, name, description, price, category, stock, image },
+      product: { id, name, description, price, category, stock, image, createdAt },
     })
   }
 
@@ -35,7 +38,7 @@ export default class ProductsController {
     const product = await Product.query()
       .where('id', params.id)
       .whereNull('deletedAt')
-      .select('id', 'name', 'description', 'price', 'category', 'stock', 'image')
+      .select('id', 'name', 'description', 'price', 'category', 'stock', 'image', 'createdAt')
       .firstOrFail()
 
     return response.ok({
@@ -49,18 +52,18 @@ export default class ProductsController {
     const payload = await request.validateUsing(updateValidator)
 
     if (product.deletedAt !== null) {
-      return response.badRequest({ error: { message: i18n.t('product_messages.error.not_found') } })
+      return response.notFound({ error: { message: i18n.t('product_messages.error.not_found') } })
     }
 
     product.merge(payload)
     await product.save()
     product.refresh()
 
-    const { id, name, description, price, category, stock, image } = product
+    const { id, name, description, price, category, stock, image, updatedAt } = product
 
     return response.ok({
       message: i18n.t('product_messages.update.success'),
-      product: { id, name, description, price, category, stock, image },
+      product: { id, name, description, price, category, stock, image, updatedAt },
     })
   }
 
@@ -68,12 +71,15 @@ export default class ProductsController {
     const product = await Product.findOrFail(params.id)
 
     if (product.deletedAt !== null) {
-      return response.badRequest({ error: { message: i18n.t('product_messages.error.not_found') } })
+      return response.notFound({ error: { message: i18n.t('product_messages.error.not_found') } })
     }
 
     product.deletedAt = DateTime.fromJSDate(new Date())
     await product.save()
 
-    return response.ok({ message: i18n.t('product_messages.delete.success') })
+    return response.ok({
+      message: i18n.t('product_messages.delete.success'),
+      deletedAt: product.deletedAt,
+    })
   }
 }
