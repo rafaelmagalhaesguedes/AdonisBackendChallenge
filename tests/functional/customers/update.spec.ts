@@ -68,4 +68,34 @@ test.group('Customers update tests', (group) => {
     // Assert
     response.assertStatus(422)
   })
+
+  test('should return an error when the email already exists', async ({ client }) => {
+    // Arrange
+    const token = await loginAndGetToken(client)
+    const customer = await CustomerFactory.create()
+
+    // Act
+    const response = await client
+      .patch(`${enpoint}/${customerId}`)
+      .header('Authorization', `Bearer ${token}`)
+      .json({ ...mockCustomerData, email: customer.email })
+
+    // Assert
+    response.assertStatus(422)
+  })
+
+  test('should return an error when the cpf already exists', async ({ client }) => {
+    // Arrange
+    const token = await loginAndGetToken(client)
+    const customer = await CustomerFactory.create()
+
+    // Act
+    const response = await client
+      .patch(`${enpoint}/${customerId}`)
+      .header('Authorization', `Bearer ${token}`)
+      .json({ ...mockCustomerData, cpf: customer.cpf })
+
+    // Assert
+    response.assertStatus(422)
+  })
 })

@@ -15,6 +15,8 @@
     "success": "Customer removed successfully."
   },
   "error": {
-    "not_found": "Customer not found."
+    "not_found": "Customer not found. Please insert another.",
+    "email_exists": "Email already exists. Please insert another.",
+    "cpf_exists": "CPF already exists. Please insert another."
   }
 }

@@ -15,6 +15,8 @@
     "success": "Cliente removido com sucesso."
   },
   "error": {
-    "not_found": "Cliente não encontrado."
+    "not_found": "Cliente não encontrado. Por favor, insira outro.",
+    "email_exists": "Email já existe. Por favor, insira outro.",
+    "cpf_exists": "CPF já existe. Por favor, insira outro."
   }
 }

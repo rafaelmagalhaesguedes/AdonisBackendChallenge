@@ -24,4 +24,48 @@ test.group('Customers list tests', () => {
     // Assert
     response.assertStatus(401)
   })
+
+  test('should return a list of customers with pagination', async ({ client, assert }) => {
+    // Arrange
+    const token = await loginAndGetToken(client)
+
+    // Act
+    const response = await client
+      .get(`${enpoint}?page=1&limit=1`)
+      .header('Authorization', `Bearer ${token}`)
+
+    // Assert
+    response.assertStatus(200)
+    assert.exists(response.body().message)
+    assert.equal(response.body().message, 'Customers retrieved successfully.')
+    assert.isArray(response.body().customers)
+    assert.lengthOf(response.body().customers, 1)
+  })
+
+  test('should return a list of customers with invalid pagination', async ({ client, assert }) => {
+    // Arrange
+    const token = await loginAndGetToken(client)
+
+    // Act
+    const response = await client
+      .get(`${enpoint}?page=99999999&limit=99999999`)
+      .header('Authorization', `Bearer ${token}`)
+
+    // Assert
+    response.assertStatus(200)
+    assert.exists(response.body().message)
+    assert.equal(response.body().message, 'Customers retrieved successfully.')
+    assert.isArray(response.body().customers)
+    assert.isEmpty(response.body().customers)
+  })
+
+  test('should return an error when the user is not authenticated with invalid pagination', async ({
+    client,
+  }) => {
+    // Act
+    const response = await client.get(`${enpoint}?page=99999999&limit=99999999`)
+
+    // Assert
+    response.assertStatus(401)
+  })
 })

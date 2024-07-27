@@ -1,6 +1,7 @@
 import Customer from '#models/customer'
-import { createValidator, updateValidator } from '#validators/customer'
+import db from '@adonisjs/lucid/services/db'
 import type { HttpContext } from '@adonisjs/core/http'
+import { createValidator, updateValidator } from '#validators/customer'
 import { serializeCustomer } from '#database/serialize/customer_serialize'
 
 export default class CustomersController {
@@ -16,17 +17,29 @@ export default class CustomersController {
 
     return response.ok({
       message: i18n.t('customer_messages.list.success'),
+      paginate: customers.meta,
       customers: customers.data,
     })
   }
 
   async store({ request, response, i18n }: HttpContext) {
     const payload = await request.validateUsing(createValidator)
-    const { id, name, email, cpf } = await Customer.create(payload)
 
-    return response.created({
-      message: i18n.t('customer_messages.create.success'),
-      customer: { id, name, email, cpf },
+    await db.transaction(async (trx) => {
+      try {
+        const { id, name, email, cpf, createdAt } = await Customer.create(payload)
+
+        return response.created({
+          message: i18n.t('customer_messages.create.success'),
+          customer: { id, name, email, cpf, createdAt },
+        })
+      } catch (error) {
+        await trx.rollback()
+        return response.internalServerError({
+          message: i18n.t('customer_messages.error.internal_error'),
+          error: error.message,
+        })
+      }
     })
   }
 
@@ -36,7 +49,6 @@ export default class CustomersController {
 
     const customer = await Customer.query()
       .where('id', params.id)
-      .select('id', 'name', 'email', 'cpf')
       .preload('addresses')
       .preload('phones')
       .preload('sales', (salesQuery) => {
@@ -46,13 +58,11 @@ export default class CustomersController {
         }
         salesQuery.preload('product')
       })
-      .firstOrFail() // Throws an exception if no record is found
-
-    const serializedCustomer = serializeCustomer(customer)
+      .firstOrFail()
 
     return response.ok({
       message: i18n.t('customer_messages.detail.success'),
-      customer: serializedCustomer,
+      customer: serializeCustomer(customer),
     })
   }
 
@@ -60,27 +70,50 @@ export default class CustomersController {
     const customer = await Customer.findOrFail(params.id)
     const payload = await request.validateUsing(updateValidator)
 
-    customer.merge(payload)
-    await customer.save()
-    customer.refresh()
+    await db.transaction(async (trx) => {
+      try {
+        customer.merge(payload)
+        await customer.save()
 
-    const { id, name, email, cpf } = customer
-
-    return response.ok({
-      message: i18n.t('customer_messages.update.success'),
-      customer: { id, name, email, cpf },
+        return response.ok({
+          message: i18n.t('customer_messages.update.success'),
+          customer: customer.serialize(),
+        })
+      } catch (error) {
+        await trx.rollback()
+        return response.internalServerError({
+          message: i18n.t('customer_messages.error.internal_error'),
+          error: error.message,
+        })
+      }
     })
   }
 
   async destroy({ params, response, i18n }: HttpContext) {
     const customer = await Customer.findOrFail(params.id)
 
-    // Delete all related sales
-    await customer.related('sales').query().delete()
+    await db.transaction(async (trx) => {
+      try {
+        // Delete all related addresses
+        await customer.related('addresses').query().delete()
 
-    // Delete the customer
-    await customer.delete()
+        // Delete all related phones
+        await customer.related('phones').query().delete()
 
-    return response.ok({ message: i18n.t('customer_messages.delete.success') })
+        // Delete all related sales
+        await customer.related('sales').query().delete()
+
+        // Delete the customer
+        await customer.delete()
+
+        return response.ok({ message: i18n.t('customer_messages.delete.success') })
+      } catch (error) {
+        await trx.rollback()
+        return response.internalServerError({
+          message: i18n.t('customer_messages.error.internal_error'),
+          error: error.message,
+        })
+      }
+    })
   }
 }
