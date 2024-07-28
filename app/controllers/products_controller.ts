@@ -78,6 +78,6 @@ export default class ProductsController {
       await product.useTransaction(trx).save()
     })
 
-    return response.ok({ message: i18n.t('product_messages.delete.success') })
+    return response.ok({ success: { message: i18n.t('product_messages.delete.success') } })
   }
 }

@@ -92,7 +92,7 @@ export default class CustomersController {
 
         await trx.commit() // Manual Commit the transaction
 
-        return response.ok({ message: i18n.t('customer_messages.delete.success') })
+        return response.ok({ success: { message: i18n.t('customer_messages.delete.success') } })
       } catch (error) {
         await trx.rollback() // Manual Rollback the transaction
         return response.internalServerError({
