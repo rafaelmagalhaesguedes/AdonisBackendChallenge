@@ -15,7 +15,7 @@
     "success": "Venda removida com sucesso."
   },
   "error": {
-    "not_found": "Venda não encontrada.",
-    "internal_error": "Ocorreu um erro interno ao processar a solicitação."
+    "not_found": "Venda não encontrada. Por favor, tente novamente.",
+    "internal_error": "Ocorreu um erro interno. Por favor, tente novamente mais tarde."
   }
 }

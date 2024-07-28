@@ -1,6 +1,6 @@
 {
   "list": {
-    "success": "Sales retrieved successfully."
+    "success": "Sales list retrieved successfully."
   },
   "create": {
     "success": "Sale registered successfully."
@@ -15,7 +15,8 @@
     "success": "Sale removed successfully."
   },
   "error": {
-    "not_found": "Sale not found.",
-    "internal_error": "An internal error occurred while processing the request."
+    "not_found": "Sale not found. Please try again.",
+    "internal_error": "Internal server error. Please try again later.",
+    "not_found_fetch": "Customer ID or Product ID not found. Please try again."
   }
 }
