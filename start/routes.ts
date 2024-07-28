@@ -13,7 +13,8 @@ router
   .group(() => {
     router.post('signup', [AuthController, 'register'])
     router.post('login', [AuthController, 'login'])
-    router.post('logout', [AuthController, 'logout']).use(middleware.auth())
+    router.delete('logout', [AuthController, 'logout']).use(middleware.auth())
+    router.get('me', [AuthController, 'me']).use(middleware.auth())
   })
   .prefix('auth')
 
@@ -39,6 +40,8 @@ router
 
 router
   .group(() => {
+    router.get('list', [SalesController, 'index']).use(middleware.auth())
     router.post('create', [SalesController, 'store']).use(middleware.auth())
+    router.get('details/:id', [SalesController, 'show']).use(middleware.auth())
   })
   .prefix('sales')
