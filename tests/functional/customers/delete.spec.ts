@@ -23,8 +23,7 @@ test.group('Customers delete tests', (group) => {
 
     // Assert
     response.assertStatus(200)
-    assert.exists(response.body().message)
-    assert.equal(response.body().message, successMessage)
+    assert.equal(response.body().success.message, successMessage)
   })
 
   test('should return an error when the user is not authenticated', async ({ client }) => {

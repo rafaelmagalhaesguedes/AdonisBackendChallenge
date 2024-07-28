@@ -4,7 +4,6 @@ import { ProductFactory } from '#database/factories/product_factory'
 
 test.group('Product delete tests', (group) => {
   const endpoint = '/products/delete'
-  const successMessage = 'Product removed successfully.'
   let productId: number
 
   group.setup(async () => {
@@ -23,7 +22,7 @@ test.group('Product delete tests', (group) => {
 
     // Assert
     response.assertStatus(200)
-    assert.equal(response.body().message, successMessage)
+    assert.equal(response.body().success.message, 'Product removed successfully.')
   })
 
   test('delete a product without authentication', async ({ client }) => {
