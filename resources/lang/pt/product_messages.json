@@ -15,6 +15,7 @@
     "success": "Produto removido com sucesso."
   },
   "error": {
-    "not_found": "Produto não encontrado."
+    "not_found": "Produto não encontrado. Por favor, verifique o ID e tente novamente.",
+    "internal_error": "Ocorreu um erro interno. Por favor, tente novamente mais tarde."
   }
 }

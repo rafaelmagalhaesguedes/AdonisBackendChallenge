@@ -1,7 +1,9 @@
 import { DateTime } from 'luxon'
 import Product from '#models/product'
+import db from '@adonisjs/lucid/services/db'
 import type { HttpContext } from '@adonisjs/core/http'
 import { createValidator, updateValidator } from '#validators/product'
+import { serializeProduct, serializeProductUpdated } from '#database/serialize/product_serialize'
 
 export default class ProductsController {
   async index({ response, request, i18n }: HttpContext) {
@@ -24,13 +26,12 @@ export default class ProductsController {
 
   async store({ request, response, i18n }: HttpContext) {
     const payload = await request.validateUsing(createValidator)
-    const product = await Product.create(payload)
 
-    const { id, name, description, price, category, stock, image, createdAt } = product
+    const product = await Product.create(payload)
 
     return response.created({
       message: i18n.t('product_messages.create.success'),
-      product: { id, name, description, price, category, stock, image, createdAt },
+      product: serializeProduct(product),
     })
   }
 
@@ -38,12 +39,11 @@ export default class ProductsController {
     const product = await Product.query()
       .where('id', params.id)
       .whereNull('deletedAt')
-      .select('id', 'name', 'description', 'price', 'category', 'stock', 'image', 'createdAt')
       .firstOrFail()
 
     return response.ok({
       message: i18n.t('product_messages.detail.success'),
-      product,
+      product: serializeProduct(product),
     })
   }
 
@@ -55,15 +55,14 @@ export default class ProductsController {
       return response.notFound({ error: { message: i18n.t('product_messages.error.not_found') } })
     }
 
-    product.merge(payload)
-    await product.save()
-    product.refresh()
-
-    const { id, name, description, price, category, stock, image, updatedAt } = product
+    await db.transaction(async (trx) => {
+      product.merge(payload)
+      await product.useTransaction(trx).save()
+    })
 
     return response.ok({
       message: i18n.t('product_messages.update.success'),
-      product: { id, name, description, price, category, stock, image, updatedAt },
+      product: serializeProductUpdated(product),
     })
   }
 
@@ -74,12 +73,11 @@ export default class ProductsController {
       return response.notFound({ error: { message: i18n.t('product_messages.error.not_found') } })
     }
 
-    product.deletedAt = DateTime.fromJSDate(new Date())
-    await product.save()
-
-    return response.ok({
-      message: i18n.t('product_messages.delete.success'),
-      deletedAt: product.deletedAt,
+    await db.transaction(async (trx) => {
+      product.deletedAt = DateTime.fromJSDate(new Date())
+      await product.useTransaction(trx).save()
     })
+
+    return response.ok({ message: i18n.t('product_messages.delete.success') })
   }
 }
