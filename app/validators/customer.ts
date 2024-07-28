@@ -1,8 +1,10 @@
 import vine from '@vinejs/vine'
 
+const name = vine.string().trim().minLength(3).maxLength(255)
+
 export const createValidator = vine.compile(
   vine.object({
-    name: vine.string().trim().minLength(3).maxLength(255),
+    name,
     email: vine
       .string()
       .email()
@@ -23,7 +25,7 @@ export const createValidator = vine.compile(
 
 export const updateValidator = vine.compile(
   vine.object({
-    name: vine.string().trim().minLength(3).maxLength(255),
+    name,
     email: vine
       .string()
       .email()

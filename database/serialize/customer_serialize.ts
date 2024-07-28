@@ -35,3 +35,14 @@ export function serializeCustomer(customer: Customer) {
     },
   })
 }
+
+/**
+ * Serialize customer data created to customize the output.
+ * @param customer The customer created entity to serialize.
+ * @returns The serialized customer created data.
+ */
+export function serializeCustomerCreated(customer: Customer) {
+  return customer.serialize({
+    fields: ['id', 'name', 'email', 'cpf', 'createdAt'],
+  })
+}
