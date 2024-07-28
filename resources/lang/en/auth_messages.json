@@ -3,11 +3,12 @@
     "success": "User registered successfully."
   },
   "login": {
-    "success": "Login successful.",
-    "invalid_credentials": "Invalid email or password."
+    "success": "Logged in successfully.",
+    "invalid_credentials": "Invalid email or password. Please try again.",
+    "internal_error": "Internal server error. Please try again later."
   },
   "logout": {
     "success": "Logged out successfully.",
-    "token_not_found": "Token not found."
+    "token_not_found": "Token not found. Please login again."
   }
 }

@@ -4,10 +4,10 @@
   },
   "login": {
     "success": "Login realizado com sucesso.",
-    "invalid_credentials": "Email ou senha inválidos."
+    "invalid_credentials": "Email ou senha inválidos. Por favor, tente novamente."
   },
   "logout": {
     "success": "Desconectado com sucesso.",
-    "token_not_found": "Token não encontrado."
+    "token_not_found": "Token não encontrado. Por favor, faça login novamente."
   }
 }
