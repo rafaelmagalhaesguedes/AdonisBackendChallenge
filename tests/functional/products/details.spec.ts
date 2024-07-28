@@ -13,12 +13,15 @@ test.group('Product details tests', (group) => {
   })
 
   test('get a product details with authentication', async ({ client, assert }) => {
+    // Arrange
     const token = await loginAndGetToken(client)
 
+    // Act
     const response = await client
       .get(`${endpoint}/${productId}`)
       .header('Authorization', `Bearer ${token}`)
 
+    // Assert
     response.assertStatus(200)
     assert.exists(response.body().message)
     assert.equal(response.body().message, successMessage)
@@ -26,24 +29,31 @@ test.group('Product details tests', (group) => {
   })
 
   test('get a product details without authentication', async ({ client }) => {
+    // Act
     const response = await client.get(`${endpoint}/${productId}`)
 
+    // Assert
     response.assertStatus(401)
   })
 
   test('get a product details with invalid id', async ({ client }) => {
+    // Arrange
     const token = await loginAndGetToken(client)
 
+    // Act
     const response = await client
       .get(`${endpoint}/99999999`)
       .header('Authorization', `Bearer ${token}`)
 
+    // Assert
     response.assertStatus(404)
   })
 
   test('get a product details with invalid id without authentication', async ({ client }) => {
+    // Act
     const response = await client.get(`${endpoint}/99999999`)
 
+    // Assert
     response.assertStatus(401)
   })
 })

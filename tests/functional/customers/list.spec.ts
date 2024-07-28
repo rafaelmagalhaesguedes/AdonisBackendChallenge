@@ -11,6 +11,7 @@ test.group('Customers list tests', () => {
     // Act
     const response = await client.get(enpoint).header('Authorization', `Bearer ${token}`)
 
+    // Assert
     response.assertStatus(200)
     assert.exists(response.body().message)
     assert.equal(response.body().message, 'Customers retrieved successfully.')

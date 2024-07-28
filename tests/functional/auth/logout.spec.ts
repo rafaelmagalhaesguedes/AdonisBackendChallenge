@@ -3,20 +3,25 @@ import { test } from '@japa/runner'
 
 test.group('Auth logout tests', () => {
   test('logout with authentication', async ({ client, assert }) => {
+    // Arrange
     const token = await loginAndGetToken(client)
 
+    // Act
     const response = await client
-      .post('/auth/logout')
+      .delete('/auth/logout')
       .header('Authorization', `Bearer ${token}`)
       .send()
 
+    // Assert
     response.assertStatus(200)
     assert.equal(response.body().message, 'Logged out successfully.')
   })
 
   test('logout without authentication', async ({ client }) => {
-    const response = await client.post('/auth/logout').send()
+    // Act
+    const response = await client.delete('/auth/logout').send()
 
+    // Assert
     response.assertStatus(401)
   })
 })

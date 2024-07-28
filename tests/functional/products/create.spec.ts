@@ -7,38 +7,48 @@ test.group('Product create tests', () => {
   const successMessage = 'Product registered successfully.'
 
   test('create a new product successfully', async ({ client, assert }) => {
+    // Arrange
     const token = await loginAndGetToken(client)
 
+    // Act
     const response = await client
       .post(endpoint)
       .header('Authorization', `Bearer ${token}`)
       .json(mockProductData)
 
+    // Assert
     response.assertStatus(201)
     assert.equal(response.body().message, successMessage)
     assert.exists(response.body().product)
   })
 
   test('create a new product with invalid data', async ({ client }) => {
+    // Arrange
     const token = await loginAndGetToken(client)
 
+    // Act
     const response = await client
       .post(endpoint)
       .header('Authorization', `Bearer ${token}`)
       .json(mockInvalidProductData)
 
+    // Assert
     response.assertStatus(422)
   })
 
   test('create a new product without authentication', async ({ client }) => {
+    // Act
     const response = await client.post(endpoint).json(mockProductData)
 
+    // Assert
     response.assertStatus(401)
   })
 
   test('create a new product with invalid data without authentication', async ({ client }) => {
+    // Act
     const response = await client.post(endpoint).json(mockInvalidProductData)
 
+    // Assert
     response.assertStatus(401)
   })
 })

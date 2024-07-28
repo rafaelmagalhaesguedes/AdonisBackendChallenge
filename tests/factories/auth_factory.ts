@@ -7,5 +7,5 @@ export async function loginAndGetToken(client: any) {
     email: 'user@user.com',
     password: 'secret_user',
   })
-  return loginResponse.body().token.token
+  return loginResponse.body().token
 }

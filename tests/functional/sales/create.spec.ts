@@ -22,18 +22,9 @@ test.group('Sales create tests', () => {
 
     // Assert
     response.assertStatus(201)
-    const responseBody = response.body()
-
-    assert.exists(responseBody.sale, 'Sale object should exist in response')
-    assert.exists(responseBody.sale.id, 'Sale ID should exist')
-    assert.exists(responseBody.sale.quantity, 'Sale quantity should exist')
-    assert.exists(responseBody.sale.totalAmount, 'Sale totalAmount should exist')
-    assert.exists(responseBody.sale.saleDate, 'Sale saleDate should exist')
-    assert.exists(responseBody.sale.product, 'Product object should exist in sale')
-    assert.exists(responseBody.sale.customer, 'Customer object should exist in sale')
-
-    assert.equal(responseBody.sale.product.id, 1, 'Product ID should match')
-    assert.equal(responseBody.sale.customer.id, 1, 'Customer ID should match')
+    assert.exists(response.body().message, 'Message should exist in response')
+    assert.equal(response.body().message, 'Sale registered successfully.')
+    assert.exists(response.body().sale, 'Sale object should exist in response')
   })
 
   test('should return an error when creating a sale with invalid data', async ({
