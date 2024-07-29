@@ -8,7 +8,7 @@ export const createValidator = vine.compile(
     neighborhood: vine.string().trim().minLength(3).maxLength(64),
     city: vine.string().trim().minLength(3).maxLength(64),
     state: vine.string().trim().minLength(2).maxLength(255),
-    zipCode: vine.string().trim().minLength(8).maxLength(8),
+    zipCode: vine.string().trim().minLength(8).maxLength(9),
     country: vine.string().trim().minLength(2).maxLength(255),
   })
 )
