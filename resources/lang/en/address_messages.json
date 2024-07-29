@@ -1,0 +1,21 @@
+{
+  "list": {
+    "success": "Addresses retrieved successfully."
+  },
+  "create": {
+    "success": "Address registered successfully."
+  },
+  "detail": {
+    "success": "Address details retrieved successfully."
+  },
+  "update": {
+    "success": "Address updated successfully."
+  },
+  "delete": {
+    "success": "Address removed successfully."
+  },
+  "error": {
+    "not_found": "Address not found. Please insert another.",
+    "not_belongs_to_customer": "Address does not belong to the customer. Please insert another."
+  }
+}

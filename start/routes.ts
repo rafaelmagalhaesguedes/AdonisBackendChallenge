@@ -50,6 +50,18 @@ router
 
 router
   .group(() => {
+    router.post('create/:id/address', [CustomersController, 'storeAddress']).use(middleware.auth())
+    router
+      .patch('update/:id/address/:addressId', [CustomersController, 'updateAddress'])
+      .use(middleware.auth())
+    router
+      .delete('delete/:id/address/:addressId', [CustomersController, 'destroyAddress'])
+      .use(middleware.auth())
+  })
+  .prefix('customers')
+
+router
+  .group(() => {
     router.get('list', [SalesController, 'index']).use(middleware.auth())
     router.post('create', [SalesController, 'store']).use(middleware.auth())
     router.get('details/:id', [SalesController, 'show']).use(middleware.auth())

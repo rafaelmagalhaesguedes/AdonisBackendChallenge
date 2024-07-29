@@ -1,7 +1,8 @@
+import Address from '#models/address'
 import Customer from '#models/customer'
 import db from '@adonisjs/lucid/services/db'
 import type { HttpContext } from '@adonisjs/core/http'
-import { createValidator, updateValidator } from '#validators/customer'
+import { createAddressValidator, createValidator, updateValidator } from '#validators/customer'
 import { serializeCustomer, serializeCustomerCreated } from '#database/serialize/customer_serialize'
 
 export default class CustomersController {
@@ -100,5 +101,60 @@ export default class CustomersController {
         })
       }
     })
+  }
+
+  async storeAddress({ params, request, response, i18n }: HttpContext) {
+    const payload = await request.validateUsing(createAddressValidator)
+    const customer = await Customer.findOrFail(params.id)
+
+    const address = await customer.related('addresses').create(payload)
+
+    return response.created({
+      message: i18n.t('address_messages.create.success'),
+      address,
+    })
+  }
+
+  async updateAddress({ params, request, response, i18n }: HttpContext) {
+    const payload = await request.validateUsing(createAddressValidator)
+    const customer = await Customer.findOrFail(params.id)
+    const address = await Address.query().where('id', params.addressId).firstOrFail()
+
+    // Check if the address belongs to the customer
+    if (address.customerId !== customer.id) {
+      return response.badRequest({
+        error: { message: i18n.t('address_messages.error.not_belongs_to_customer') },
+      })
+    }
+
+    await db.transaction(async (trx) => {
+      address.merge(payload)
+      await address.useTransaction(trx).save()
+    })
+
+    address.refresh()
+
+    return response.ok({
+      message: i18n.t('address_messages.update.success'),
+      address,
+    })
+  }
+
+  async destroyAddress({ params, response, i18n }: HttpContext) {
+    const customer = await Customer.findOrFail(params.id)
+    const address = await Address.query().where('id', params.addressId).firstOrFail()
+
+    // Check if the address belongs to the customer
+    if (address.customerId !== customer.id) {
+      return response.badRequest({
+        error: { message: i18n.t('address_messages.error.not_belongs_to_customer') },
+      })
+    }
+
+    await db.transaction(async (trx) => {
+      await address.useTransaction(trx).delete()
+    })
+
+    return response.ok({ success: { message: i18n.t('address_messages.delete.success') } })
   }
 }
