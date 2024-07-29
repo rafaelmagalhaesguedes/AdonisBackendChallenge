@@ -9,6 +9,8 @@ const ProductsController = () => import('#controllers/products_controller')
 
 const CustomersController = () => import('#controllers/customers_controller')
 
+const AddressesController = () => import('#controllers/addresses_controller')
+
 const SalesController = () => import('#controllers/sales_controller')
 
 router
@@ -50,15 +52,15 @@ router
 
 router
   .group(() => {
-    router.post('create/:id/address', [CustomersController, 'storeAddress']).use(middleware.auth())
+    router.post('create/:customerId', [AddressesController, 'store']).use(middleware.auth())
     router
-      .patch('update/:id/address/:addressId', [CustomersController, 'updateAddress'])
+      .patch('update/:id/customer/:customerId', [AddressesController, 'update'])
       .use(middleware.auth())
     router
-      .delete('delete/:id/address/:addressId', [CustomersController, 'destroyAddress'])
+      .delete('delete/:id/customer/:customerId', [AddressesController, 'destroy'])
       .use(middleware.auth())
   })
-  .prefix('customers')
+  .prefix('address')
 
 router
   .group(() => {
