@@ -5,6 +5,15 @@ import { createValidator, updateValidator } from '#validators/customer'
 import { serializeCustomer, serializeCustomerCreated } from '#database/serialize/customer_serialize'
 
 export default class CustomersController {
+  /**
+   * List all customers with pagination.
+   * *
+   * @param {HttpContext} ctx - The context object.
+   * @param {Object} ctx.request - The HTTP request object.
+   * @param {Object} ctx.response - The HTTP response object.
+   * @param {Object} ctx.i18n - The i18n localization object.
+   * @returns JSON object with success message and paginated customer list.
+   */
   async index({ request, response, i18n }: HttpContext) {
     const page = request.input('page', 1)
     const limit = request.input('limit', 10)
@@ -22,6 +31,15 @@ export default class CustomersController {
     })
   }
 
+  /**
+   * Create a new customer.
+   * *
+   * @param {HttpContext} ctx - The context object.
+   * @param {Object} ctx.request - The HTTP request object.
+   * @param {Object} ctx.response - The HTTP response object.
+   * @param {Object} ctx.i18n - The i18n localization object.
+   * @returns JSON object with success message and created customer details.
+   */
   async store({ request, response, i18n }: HttpContext) {
     const payload = await request.validateUsing(createValidator)
 
@@ -35,6 +53,16 @@ export default class CustomersController {
     })
   }
 
+  /**
+   * Show details of a customer by their ID, including addresses, phones, and sales.
+   * *
+   * @param {HttpContext} ctx - The context object.
+   * @param {Object} ctx.params - The route parameters.
+   * @param {Object} ctx.request - The HTTP request object.
+   * @param {Object} ctx.response - The HTTP response object.
+   * @param {Object} ctx.i18n - The i18n localization object.
+   * @returns JSON object with success message and customer details.
+   */
   async show({ params, request, response, i18n }: HttpContext) {
     const month = request.input('month')
     const year = request.input('year')
@@ -58,6 +86,16 @@ export default class CustomersController {
     })
   }
 
+  /**
+   * Update customer details.
+   * *
+   * @param {HttpContext} ctx - The context object.
+   * @param {Object} ctx.params - The route parameters.
+   * @param {Object} ctx.request - The HTTP request object.
+   * @param {Object} ctx.response - The HTTP response object.
+   * @param {Object} ctx.i18n - The i18n localization object.
+   * @returns JSON object with success message and updated customer details.
+   */
   async update({ params, request, response, i18n }: HttpContext) {
     const customer = await Customer.findOrFail(params.id)
     const payload = await request.validateUsing(updateValidator)
@@ -73,6 +111,15 @@ export default class CustomersController {
     })
   }
 
+  /**
+   * Delete a customer and all related data (addresses, phones, sales).
+   * *
+   * @param {HttpContext} ctx - The context object.
+   * @param {Object} ctx.params - The route parameters.
+   * @param {Object} ctx.response - The HTTP response object.
+   * @param {Object} ctx.i18n - The i18n localization object.
+   * @returns JSON object with success message for delete operation.
+   */
   async destroy({ params, response, i18n }: HttpContext) {
     const customer = await Customer.findOrFail(params.id)
 

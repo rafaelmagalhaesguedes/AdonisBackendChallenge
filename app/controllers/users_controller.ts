@@ -4,6 +4,16 @@ import { updateValidator } from '#validators/user'
 import type { HttpContext } from '@adonisjs/core/http'
 
 export default class UsersController {
+  /**
+   * Show details of a user by their ID.
+   * *
+   * @param {HttpContext} ctx - The context object.
+   * @param {Object} ctx.params - The route parameters.
+   * @param {Object} ctx.response - The HTTP response object.
+   * @param {Object} ctx.i18n - The i18n localization object.
+   * @returns User JSON with success message and user details.
+   * *
+   */
   async show({ params, response, i18n }: HttpContext) {
     const user = await User.query()
       .select('id', 'fullName', 'email')
@@ -16,6 +26,16 @@ export default class UsersController {
     })
   }
 
+  /**
+   * Update a user's details.
+   * *
+   * @param {HttpContext} ctx - The context object.
+   * @param {Object} ctx.params - The route parameters.
+   * @param {Object} ctx.request - The HTTP request object.
+   * @param {Object} ctx.response - The HTTP response object.
+   * @param {Object} ctx.i18n - The i18n localization object.
+   * @returns User JSON with success message and updated user details.
+   */
   async update({ params, request, response, i18n }: HttpContext) {
     const payload = await request.validateUsing(updateValidator)
     const user = await User.findOrFail(params.id)
@@ -33,6 +53,15 @@ export default class UsersController {
     })
   }
 
+  /**
+   * Delete a user by their ID.
+   * *
+   * @param {HttpContext} ctx - The context object.
+   * @param {Object} ctx.params - The route parameters.
+   * @param {Object} ctx.response - The HTTP response object.
+   * @param {Object} ctx.i18n - The i18n localization object.
+   * @returns JSON with success message.
+   */
   async destroy({ params, response, i18n }: HttpContext) {
     const user = await User.findOrFail(params.id)
 

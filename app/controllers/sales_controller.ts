@@ -5,6 +5,15 @@ import type { HttpContext } from '@adonisjs/core/http'
 import { serializeSale, serializeSaleCreated } from '#database/serialize/sale_serialize'
 
 export default class SalesController {
+  /**
+   * List all sales with pagination.
+   * *
+   * @param {HttpContext} ctx - The context object.
+   * @param {Object} ctx.request - The HTTP request object.
+   * @param {Object} ctx.response - The HTTP response object.
+   * @param {Object} ctx.i18n - The i18n localization object.
+   * @returns JSON Object list of sales with pagination meta data.
+   */
   async index({ request, response, i18n }: HttpContext) {
     const page = request.input('page', 1)
     const limit = request.input('limit', 10)
@@ -22,6 +31,15 @@ export default class SalesController {
     })
   }
 
+  /**
+   * Create a new sale.
+   * *
+   * @param {HttpContext} ctx - The context object.
+   * @param {Object} ctx.request - The HTTP request object.
+   * @param {Object} ctx.response - The HTTP response object.
+   * @param {Object} ctx.i18n - The i18n localization object.
+   * @returns JSON object with success message and created sale details.
+   */
   async store({ request, response, i18n }: HttpContext): Promise<void> {
     const payload = await request.validateUsing(createValidator)
     const { customerId, productId, quantity } = payload
@@ -43,6 +61,15 @@ export default class SalesController {
     })
   }
 
+  /**
+   * Show details of a sale by its ID.
+   * *
+   * @param {HttpContext} ctx - The context object.
+   * @param {Object} ctx.params - The route parameters.
+   * @param {Object} ctx.response - The HTTP response object.
+   * @param {Object} ctx.i18n - The i18n localization object.
+   * @returns Sale JSON object with success message and sale details.
+   */
   async show({ params, response, i18n }: HttpContext) {
     const sale = await Sale.query()
       .where('id', params.id)

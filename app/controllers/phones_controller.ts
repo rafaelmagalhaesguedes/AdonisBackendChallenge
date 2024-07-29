@@ -5,6 +5,16 @@ import { createValidator } from '#validators/phone'
 import type { HttpContext } from '@adonisjs/core/http'
 
 export default class PhonesController {
+  /**
+   * Create a new phone for a customer.
+   * *
+   * @param {HttpContext} ctx - The context object.
+   * @param {Object} ctx.params - The route parameters.
+   * @param {Object} ctx.request - The HTTP request object.
+   * @param {Object} ctx.response - The HTTP response object.
+   * @param {Object} ctx.i18n - The i18n localization object.
+   * @returns JSON object with success message and created phone details.
+   */
   async store({ params, request, response, i18n }: HttpContext) {
     const payload = await request.validateUsing(createValidator)
     const customer = await Customer.findOrFail(params.customerId)
@@ -17,6 +27,16 @@ export default class PhonesController {
     })
   }
 
+  /**
+   * Update a phone's details for a customer.
+   * *
+   * @param {HttpContext} ctx - The context object.
+   * @param {Object} ctx.params - The route parameters.
+   * @param {Object} ctx.request - The HTTP request object.
+   * @param {Object} ctx.response - The HTTP response object.
+   * @param {Object} ctx.i18n - The i18n localization object.
+   * @returns JSON object with success message and updated phone details.
+   */
   async update({ params, request, response, i18n }: HttpContext) {
     const payload = await request.validateUsing(createValidator)
     const customer = await Customer.findOrFail(params.customerId)
@@ -42,6 +62,15 @@ export default class PhonesController {
     })
   }
 
+  /**
+   * Delete a phone for a customer.
+   * *
+   * @param {HttpContext} ctx - The context object.
+   * @param {Object} ctx.params - The route parameters.
+   * @param {Object} ctx.response - The HTTP response object.
+   * @param {Object} ctx.i18n - The i18n localization object.
+   * @returns JSON object with success message for delete operation.
+   */
   async destroy({ params, response, i18n }: HttpContext) {
     const customer = await Customer.findOrFail(params.customerId)
     const phone = await Phone.query().where('id', params.id).firstOrFail()

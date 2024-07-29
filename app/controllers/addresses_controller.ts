@@ -5,6 +5,17 @@ import { createValidator } from '#validators/address'
 import type { HttpContext } from '@adonisjs/core/http'
 
 export default class AddressesController {
+  /**
+   * Create a new address for a customer.
+   * *
+   * @param {HttpContext} ctx - The context object.
+   * @param {Object} ctx.params - The route parameters.
+   * @param {number} ctx.params.customerId - The ID of the customer.
+   * @param {Object} ctx.request - The HTTP request object.
+   * @param {Object} ctx.response - The HTTP response object.
+   * @param {Object} ctx.i18n - The i18n localization object.
+   * @returns JSON object with success message and created address details.
+   */
   async store({ params, request, response, i18n }: HttpContext) {
     const payload = await request.validateUsing(createValidator)
     const customer = await Customer.findOrFail(params.customerId)
@@ -17,6 +28,18 @@ export default class AddressesController {
     })
   }
 
+  /**
+   * Update an address for a customer.
+   * *
+   * @param {HttpContext} ctx - The context object.
+   * @param {Object} ctx.params - The route parameters.
+   * @param {number} ctx.params.id - The ID of the customer.
+   * @param {number} ctx.params.customerId - The ID of the address.
+   * @param {Object} ctx.request - The HTTP request object.
+   * @param {Object} ctx.response - The HTTP response object.
+   * @param {Object} ctx.i18n - The i18n localization object.
+   * @returns JSON object with success message and updated address details.
+   */
   async update({ params, request, response, i18n }: HttpContext) {
     const payload = await request.validateUsing(createValidator)
     const customer = await Customer.findOrFail(params.id)
@@ -42,6 +65,17 @@ export default class AddressesController {
     })
   }
 
+  /**
+   * Delete an address of a customer.
+   * *
+   * @param {HttpContext} ctx - The context object.
+   * @param {Object} ctx.params - The route parameters.
+   * @param {number} ctx.params.id - The ID of the customer.
+   * @param {number} ctx.params.customerId - The ID of the address.
+   * @param {Object} ctx.response - The HTTP response object.
+   * @param {Object} ctx.i18n - The i18n localization object.
+   * @returns JSON object with success message for delete operation.
+   */
   async destroy({ params, response, i18n }: HttpContext) {
     const customer = await Customer.findOrFail(params.id)
     const address = await Address.query().where('id', params.customerId).firstOrFail()
