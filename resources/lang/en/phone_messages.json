@@ -1,0 +1,22 @@
+{
+  "list": {
+    "success": "Phones retrieved successfully."
+  },
+  "create": {
+    "success": "Phone registered successfully."
+  },
+  "detail": {
+    "success": "Phone details retrieved successfully."
+  },
+  "update": {
+    "success": "Phone updated successfully."
+  },
+  "delete": {
+    "success": "Phone removed successfully."
+  },
+  "error": {
+    "not_found": "Phone not found. Please, try again.",
+    "internal_error": "Internal server error. Please try again later.",
+    "not_belongs_to_customer": "Phone does not belong to the customer. Please insert another."
+  }
+}

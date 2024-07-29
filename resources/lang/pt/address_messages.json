@@ -1,0 +1,21 @@
+{
+  "list": {
+    "success": "Endereços recuperados com sucesso."
+  },
+  "create": {
+    "success": "Endereço registrado com sucesso."
+  },
+  "detail": {
+    "success": "Detalhes do endereço recuperados com sucesso."
+  },
+  "update": {
+    "success": "Endereço atualizado com sucesso."
+  },
+  "delete": {
+    "success": "Endereço removido com sucesso."
+  },
+  "error": {
+    "not_found": "Endereço não encontrado. Por favor, insira outro.",
+    "not_belongs_to_customer": "O endereço não pertence ao cliente. Por favor, insira outro."
+  }
+}

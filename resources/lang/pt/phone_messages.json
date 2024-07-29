@@ -1,0 +1,22 @@
+{
+  "list": {
+    "success": "Telefones recuperados com sucesso."
+  },
+  "create": {
+    "success": "Telefone registrado com sucesso."
+  },
+  "detail": {
+    "success": "Detalhes do telefone recuperados com sucesso."
+  },
+  "update": {
+    "success": "Telefone atualizado com sucesso."
+  },
+  "delete": {
+    "success": "Telefone removido com sucesso."
+  },
+  "error": {
+    "not_found": "Telefone não encontrado. Por favor, tente novamente.",
+    "internal_error": "Erro interno do servidor. Por favor, tente novamente mais tarde.",
+    "not_belongs_to_customer": "O telefone não pertence ao cliente. Por favor, insira outro."
+  }
+}
