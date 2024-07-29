@@ -1,0 +1,21 @@
+{
+  "list": {
+    "success": "Usuários recuperados com sucesso."
+  },
+  "create": {
+    "success": "Usuário registrado com sucesso."
+  },
+  "detail": {
+    "success": "Detalhes do usuário recuperados com sucesso."
+  },
+  "update": {
+    "success": "Usuário atualizado com sucesso."
+  },
+  "delete": {
+    "success": "Usuário removido com sucesso."
+  },
+  "error": {
+    "not_found": "Usuário não encontrado. Por favor, tente novamente.",
+    "internal_error": "Ocorreu um erro interno. Por favor, tente novamente mais tarde."
+  }
+}

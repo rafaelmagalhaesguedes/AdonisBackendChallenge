@@ -3,6 +3,8 @@ import router from '@adonisjs/core/services/router'
 
 const AuthController = () => import('#controllers/auth_controller')
 
+const UsersController = () => import('#controllers/users_controller')
+
 const ProductsController = () => import('#controllers/products_controller')
 
 const CustomersController = () => import('#controllers/customers_controller')
@@ -17,6 +19,14 @@ router
     router.get('me', [AuthController, 'me']).use(middleware.auth())
   })
   .prefix('auth')
+
+router
+  .group(() => {
+    router.get('details/:id', [UsersController, 'show']).use(middleware.auth())
+    router.patch('update/:id', [UsersController, 'update']).use(middleware.auth())
+    router.delete('delete/:id', [UsersController, 'destroy']).use(middleware.auth())
+  })
+  .prefix('users')
 
 router
   .group(() => {
