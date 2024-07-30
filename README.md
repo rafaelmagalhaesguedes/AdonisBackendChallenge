@@ -33,7 +33,7 @@ O projeto foi desenvolvido utilizando o framework AdonisJS versão 6, com o Kit 
 
 - VineJS (para validação de dados das requisições)
 
-- i18n (para internacionalização)
+- i18n (para internacionalização das mensagens em inglês e ou português)
 
 - Japa (para testes funcionais)
 
