@@ -31,6 +31,8 @@ O projeto foi desenvolvido utilizando o framework AdonisJS versão 6, com o Kit 
 
 - Lucid (ORM)
 
+- VineJS (para validação de dados das requisições)
+
 - i18n (para internacionalização)
 
 - Japa (para testes funcionais)
