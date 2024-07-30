@@ -207,3 +207,253 @@ Para executar os testes, use o comando:
 - GET /sales/details/:id
   - Obtém detalhes de uma venda específica.
   - Requer: Token de acesso no cabeçalho.
+
+### Principais fluxos da aplicação
+
+#### Autenticação
+
+- **Login:**
+  - **POST /auth/login**
+  
+  - Request Body:
+    ```json
+    {
+      "email": "user@user.com",
+      "password": "secret_user"
+    }
+    ```
+  - Response:
+    ```json
+    {
+      "message": "Login realizado com sucesso.",
+      "token": "oat_NzI2MA.c2pFRzVjTnNzZDVkaGNVM21hVVJsQjkyQlRJdTRuZExINEhfUnhiUDI4ODU2NDIwMjM",
+      "user": {
+        "id": 2,
+        "fullName": "User",
+        "email": "user@user.com"
+      }
+    }
+    ```
+
+- **Registro de usuários:**
+  - **POST /auth/signup**
+
+  - Request Body:
+    ```json
+    {
+      "fullName": "Rafael Guedes",
+      "email": "rafael@email.com",
+      "password": "minha_senha"
+    }
+    ```
+  - Response:
+    ```json
+    {
+      "message": "Usuário registrado com sucesso.",
+      "user": {
+        "fullName": "Rafael Guedes",
+        "email": "rafael@email.com",
+        "createdAt": "2024-07-30T14:47:45.043+00:00",
+        "id": 548
+      }
+    }
+    ```
+
+#### Venda
+
+- **Registrar uma venda:**
+  - **POST /sales/create**
+
+  - Request Body:
+    ```json
+    {
+      "customerId": "2",
+      "productId": "1",
+      "quantity": "3"
+    }
+    ```
+
+  - Response:
+    ```json
+    {
+      "message": "Venda registrada com sucesso.",
+      "sale": {
+        "customerId": 2,
+        "productId": 1,
+        "quantity": 3,
+        "unitPrice": 100,
+        "totalAmount": 300,
+        "createdAt": "2024-07-30T14:54:01.807+00:00",
+        "id": 146
+      }
+    }
+    ```
+
+- **Detalhes de uma venda:**
+  - **POST /sales/details/id-da-venda**
+
+  - Response:
+    ```json
+    {
+      "message": "Detalhes da venda recuperados com sucesso.",
+      "sale": {
+        "id": 146,
+        "quantity": 3,
+        "unitPrice": "100.00",
+        "totalAmount": "300.00",
+        "createdAt": "2024-07-30T14:54:01.807+00:00",
+        "product": {
+          "id": 1,
+          "name": "Product 1",
+          "description": "Description for product 1",
+          "price": "100.00"
+        },
+        "customer": {
+          "id": 2,
+          "name": "User",
+          "email": "user@user.com"
+        }
+      }
+    }
+    ```
+
+#### Cliente
+
+- **Registrar um cliente:**
+  - **POST /sales/create**
+
+  - Request Body:
+    ```json
+    {
+      "name": "Cliente",
+      "email": "cliente@email.com",
+      "cpf": "000.000.000-00"
+    }
+    ```
+
+  - Response:
+    ```json
+    {
+      "message": "Cliente registrado com sucesso.",
+      "customer": {
+        "name": "Cliente",
+        "email": "cliente@email.com",
+        "cpf": "000.000.000-00",
+        "createdAt": "2024-07-30T14:57:27.547+00:00",
+        "id": 1621
+      }
+    }
+    ```
+
+- **Registrar telefone do cliente:**
+  - **POST /phones/create/id-do-cliente**
+
+  - Request Body:
+    ```json
+    {
+      "number": "00 99999 9999",
+      "type": "Trabalho"
+    }
+    ```
+    
+  - Response:
+    ```json
+    {
+      "message": "Telefone registrado com sucesso.",
+      "phone": {
+        "number": "00 99999 9999",
+        "type": "Trabalho",
+        "customerId": 1,
+        "createdAt": "2024-07-30T15:00:25.959+00:00",
+        "updatedAt": "2024-07-30T15:00:25.959+00:00",
+        "id": 453
+      }
+    }
+    ```
+
+- **Registrar endereço do cliente:**
+  - **POST /address/create/id-do-cliente**
+
+  - Request Body:
+    ```json
+    {
+      "street": "Av. Santo Antônio",
+      "number": "2",
+      "complement": "Casa",
+      "neighborhood": "Lourdes",
+      "city": "Belo Horizonte",
+      "state": "Minas Gerais",
+      "zipCode": "12233333",
+      "country": "Brasil"
+    }
+    ```
+
+  - Response:
+    ```json
+    {
+      "message": "Endereço registrado com sucesso.",
+      "address": {
+        "street": "Av. Santo Antônio",
+        "number": "2",
+        "complement": "Casa",
+        "neighborhood": "Lourdes",
+        "city": "Belo Horizonte",
+        "state": "Minas Gerais",
+        "zipCode": "12233333",
+        "country": "Brasil",
+        "customerId": 1,
+        "createdAt": "2024-07-30T15:02:45.971+00:00",
+        "updatedAt": "2024-07-30T15:02:45.971+00:00",
+        "id": 163
+      }
+    }
+    ```
+
+- **Detalhes do cliente:**
+  - **GET /customers/details/id-do-cliente**
+
+  - Response:
+    ```json
+    {
+      "message": "Detalhes do cliente recuperados com sucesso.",
+      "customer": {
+        "id": 3,
+        "name": "Cliente Teste",
+        "cpf": "987.654.321-00",
+        "email": "client2@client.com",
+        "addresses": {
+          "street": "Rua das Flores",
+          "number": "123",
+          "complement": "Apto 123",
+          "neighborhood": "Centro",
+          "city": "São Paulo",
+          "state": "SP",
+          "zipCode": "12345-678",
+          "country": "Brasil"
+        },
+        "phones": [
+          {
+            "number": "00 999773 1234",
+            "type": "Home"
+          },
+          {
+            "number": "00 999773 1234",
+            "type": "Mobile"
+          }
+        ],
+        "sales": [
+          {
+            "quantity": 1,
+            "unitPrice": "150.00",
+            "totalAmount": "150.00",
+            "createdAt": "2024-07-29T13:13:38.000+00:00",
+            "product": {
+              "name": "Product 2",
+              "description": "Description for product 2",
+              "price": "150.00"
+            }
+          }
+        ]
+      }
+    }
+    ```
