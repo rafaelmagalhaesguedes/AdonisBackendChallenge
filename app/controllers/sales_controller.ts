@@ -4,7 +4,6 @@ import redis from '@adonisjs/redis/services/main'
 import { createValidator } from '#validators/sale'
 import logger from '@adonisjs/core/services/logger'
 import type { HttpContext } from '@adonisjs/core/http'
-
 import { serializeSale, serializeSaleCreated } from '#database/serialize/sale_serialize'
 
 export default class SalesController {
@@ -39,7 +38,7 @@ export default class SalesController {
     logger.info(`Setting cache for key: ${cacheKey}`)
 
     // Cache the data
-    await redis.set(cacheKey, JSON.stringify(sales), 'EX', 60 * 60) // Cache for 1 hour
+    await redis.set(cacheKey, JSON.stringify(sales), 'EX', 60 * 60)
 
     return response.ok({
       message: i18n.t('sale_messages.list.success'),
@@ -92,11 +91,25 @@ export default class SalesController {
    * @returns Sale JSON object with success message and sale details.
    */
   async show({ params, response, i18n }: HttpContext) {
+    const cacheKey = `sale_${params.id}`
+
+    const cachedSale = await redis.get(cacheKey)
+    if (cachedSale) {
+      logger.info(`Cache hit for sale id: ${params.id}`)
+      return response.ok({
+        message: i18n.t('sale_messages.detail.success'),
+        sale: JSON.parse(cachedSale),
+      })
+    }
+
     const sale = await Sale.query()
       .where('id', params.id)
       .preload('product')
       .preload('customer')
       .firstOrFail()
+
+    await redis.set(cacheKey, JSON.stringify(serializeSale(sale)), 'EX', 3600) // Cache for 1 hour
+    logger.info(`Cache set for sale id: ${params.id}`)
 
     return response.ok({
       message: i18n.t('sale_messages.detail.success'),
