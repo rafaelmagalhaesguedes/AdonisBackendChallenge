@@ -39,6 +39,8 @@ O projeto foi desenvolvido utilizando o framework AdonisJS versão 6, com o Kit 
 
 - Japa (para testes funcionais)
 
+- Docker
+
 ## Instalação
 
 1. Clone o repositório:
@@ -54,22 +56,41 @@ O projeto foi desenvolvido utilizando o framework AdonisJS versão 6, com o Kit 
     npm install
     ```
 
-3. Configure o arquivo .env ou rode o banco de dados MySQL com docker(o projeto já possui um docker compose com o MySQL configurado):
-    
+3. Configure o arquivo .env com as seguintes variáveis ou use as configurações padrão fornecidas:
+
+    ```properties
+    TZ=UTC
+    PORT=3333
+    HOST=0.0.0.0
+    LOG_LEVEL=info
+    APP_KEY=_gIPEGEkdhGQZ6R1roAc0G8ZXo4V8BSW
+    NODE_ENV=development
+    DB_HOST=database
+    DB_PORT=3306
+    DB_USER=root
+    DB_PASSWORD=root
+    DB_DATABASE=adonis_app
+    REDIS_HOST=redis
+    REDIS_PORT=6379
+    REDIS_PASSWORD=
+    ```
+
+4. Rode o banco de dados MySQL e o Redis com Docker (o projeto já possui um Docker Compose configurado):
+
     ```
     docker compose up -d
     ```
 
-4. Rode as migrações para configurar o banco de dados:
+5. Rode as migrações para configurar o banco de dados:
 
     ```
-    node ace migration:run
+    docker exec -it adonis_app node ace migration:run
     ```
 
-5. Rode os semeadores(seeders) para inserir dados iniciais:
+6. Rode os semeadores (seeders) para inserir dados iniciais:
 
     ```
-    node ace db:seed
+    docker exec -it adonis_app node ace db:seed
     ```
 
 ## Uso
@@ -78,17 +99,19 @@ O projeto foi desenvolvido utilizando o framework AdonisJS versão 6, com o Kit 
 
 Para iniciar o servidor, use o comando:
     
-    ```
-    node ace serve --watch
-    ```
+  ```
+  docker exec -it adonis_app node ace serve --watch
+  ```
+
+**A aplicação estará disponível na porta** http://localhost:3333
 
 ### Executando testes funcionais
 
 Para executar os testes, use o comando:
     
-    ```
-    node ace test --watch
-    ```
+  ```
+  docker exec -it adonis_app node ace test --watch
+  ```
 
 ## Endpoints da API
 

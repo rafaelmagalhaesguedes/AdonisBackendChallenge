@@ -1,23 +1,58 @@
-version: '3.9'
+version: '4'
 
 services:
 
+  adonis_app:
+    container_name: adonis_app
+    restart: always
+    depends_on:
+      - database
+      - redis
+    build:
+      context: .
+      target: dependencies
+    ports:
+      - ${PORT}:${PORT}
+      - 9229:9229
+    env_file:
+      - .env
+    environment:
+      - DB_HOST=database
+      - REDIS_HOST=redis
+    volumes:
+      - ./:/home/node/app
+    command: dumb-init node ace serve --watch 
+    networks:
+      - bridge
+
   database:
-    container_name: mysql
-    image: mysql:5.7
+    container_name: database
+    image: mysql:8.0
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: sales_db
+      MYSQL_DATABASE: adonis_app
     ports:
-      - '3306:3306'
+      - "3306:3306"
     volumes:
       - db-data:/var/lib/mysql
+      - $PWD/dockerConfig/mysql-dev-init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - bridge
 
   redis:
     container_name: redis
     image: redis:6.0.9
+    volumes:
+     - redis-data:/data
     ports:
       - '6379:6379'
+    networks:
+      - bridge
 
 volumes:
   db-data:
+  redis-data:
+
+networks:
+  bridge:
+    driver: bridge
