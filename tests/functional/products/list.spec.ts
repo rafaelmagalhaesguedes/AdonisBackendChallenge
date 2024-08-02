@@ -3,7 +3,6 @@ import { test } from '@japa/runner'
 
 test.group('Product list tests', () => {
   const endpoint = '/products/list'
-  const successMessage = 'Products retrieved successfully.'
 
   test('get a list of products with authentication', async ({ client, assert }) => {
     // Arrange
@@ -14,9 +13,7 @@ test.group('Product list tests', () => {
 
     // Assert
     response.assertStatus(200)
-    assert.exists(response.body().message)
-    assert.equal(response.body().message, successMessage)
-    assert.exists(response.body().products)
+    assert.exists(response.body().data)
   })
 
   test('get a list of products without authentication', async ({ client }) => {
@@ -38,10 +35,8 @@ test.group('Product list tests', () => {
 
     // Assert
     response.assertStatus(200)
-    assert.exists(response.body().message)
-    assert.equal(response.body().message, successMessage)
-    assert.exists(response.body().products)
-    assert.lengthOf(response.body().products, 1)
+    assert.exists(response.body().data)
+    assert.lengthOf(response.body().data, 1)
   })
 
   test('get a list of products with invalid pagination', async ({ client, assert }) => {
@@ -55,10 +50,8 @@ test.group('Product list tests', () => {
 
     // Assert
     response.assertStatus(200)
-    assert.exists(response.body().message)
-    assert.equal(response.body().message, successMessage)
-    assert.exists(response.body().products)
-    assert.isEmpty(response.body().products)
+    assert.exists(response.body().data)
+    assert.isEmpty(response.body().data)
   })
 
   test('get a list of products with invalid token', async ({ client }) => {

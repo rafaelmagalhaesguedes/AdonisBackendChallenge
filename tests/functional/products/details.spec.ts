@@ -25,7 +25,7 @@ test.group('Product details tests', (group) => {
     response.assertStatus(200)
     assert.exists(response.body().message)
     assert.equal(response.body().message, successMessage)
-    assert.exists(response.body().product)
+    assert.exists(response.body().data)
   })
 
   test('get a product details without authentication', async ({ client }) => {

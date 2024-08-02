@@ -19,7 +19,7 @@ test.group('Product create tests', () => {
     // Assert
     response.assertStatus(201)
     assert.equal(response.body().message, successMessage)
-    assert.exists(response.body().product)
+    assert.exists(response.body().data)
   })
 
   test('create a new product with invalid data', async ({ client }) => {

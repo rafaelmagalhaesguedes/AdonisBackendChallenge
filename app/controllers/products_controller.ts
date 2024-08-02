@@ -36,7 +36,7 @@ export default class ProductsController {
     return response.ok({
       message: i18n.t('product_messages.list.success'),
       paginate: products.meta,
-      products: products.data,
+      data: products.data,
     })
   }
 
@@ -56,7 +56,7 @@ export default class ProductsController {
 
     return response.created({
       message: i18n.t('product_messages.create.success'),
-      product: serializeProduct(product),
+      data: serializeProduct(product),
     })
   }
 
@@ -84,7 +84,7 @@ export default class ProductsController {
 
     return response.ok({
       message: i18n.t('product_messages.detail.success'),
-      product: serializeProduct(product),
+      data: serializeProduct(product),
     })
   }
 
@@ -113,7 +113,7 @@ export default class ProductsController {
 
     return response.ok({
       message: i18n.t('product_messages.update.success'),
-      product: serializeProductUpdated(product),
+      data: serializeProductUpdated(product),
     })
   }
 

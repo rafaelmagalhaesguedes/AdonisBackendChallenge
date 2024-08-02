@@ -19,7 +19,7 @@ export default class AuthController {
 
     return response.created({
       message: i18n.t('auth_messages.register.success'),
-      user: serializeUser(user),
+      data: serializeUser(user),
     })
   }
 
@@ -42,7 +42,7 @@ export default class AuthController {
     return response.ok({
       message: i18n.t('auth_messages.login.success'),
       token: token,
-      user: serializeUserLogin(user),
+      data: serializeUserLogin(user),
     })
   }
 

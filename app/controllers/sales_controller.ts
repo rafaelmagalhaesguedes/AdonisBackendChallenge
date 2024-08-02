@@ -35,7 +35,7 @@ export default class SalesController {
     return response.ok({
       message: i18n.t('sale_messages.list.success'),
       paginate: sales.meta,
-      sales: sales.data,
+      data: sales.data,
     })
   }
 
@@ -69,7 +69,7 @@ export default class SalesController {
 
     return response.created({
       message: i18n.t('sale_messages.create.success'),
-      sale: serializeSaleCreated(sale),
+      data: serializeSaleCreated(sale),
     })
   }
 
@@ -89,7 +89,7 @@ export default class SalesController {
     if (cachedSale) {
       return response.ok({
         message: i18n.t('sale_messages.detail.success'),
-        sale: JSON.parse(cachedSale),
+        data: JSON.parse(cachedSale),
       })
     }
 
@@ -103,7 +103,7 @@ export default class SalesController {
 
     return response.ok({
       message: i18n.t('sale_messages.detail.success'),
-      sale: serializeSale(sale),
+      data: serializeSale(sale),
     })
   }
 }

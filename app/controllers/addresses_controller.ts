@@ -24,7 +24,7 @@ export default class AddressesController {
 
     return response.created({
       message: i18n.t('address_messages.create.success'),
-      address,
+      data: address,
     })
   }
 
@@ -61,7 +61,7 @@ export default class AddressesController {
 
     return response.ok({
       message: i18n.t('address_messages.update.success'),
-      address,
+      data: address,
     })
   }
 

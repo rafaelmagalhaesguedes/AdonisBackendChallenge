@@ -25,7 +25,7 @@ test.group('Customers details tests', (group) => {
     response.assertStatus(200)
     assert.exists(response.body().message)
     assert.equal(response.body().message, successMessage)
-    assert.exists(response.body().customer)
+    assert.exists(response.body().data)
   })
 
   test('should return an error when the user is not authenticated', async ({ client }) => {

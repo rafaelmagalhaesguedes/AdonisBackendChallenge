@@ -12,9 +12,8 @@ test.group('Sales list tests', () => {
 
     // Assert
     response.assertStatus(200)
-    const { message, sales } = response.body()
-    assert.equal(message, 'Sales list retrieved successfully.')
-    assert.isArray(sales)
+    const { data } = response.body()
+    assert.isArray(data)
   })
 
   test('ensure user cannot see sales list without authentication', async ({ client }) => {

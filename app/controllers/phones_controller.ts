@@ -23,7 +23,7 @@ export default class PhonesController {
 
     return response.created({
       message: i18n.t('phone_messages.create.success'),
-      phone,
+      data: phone,
     })
   }
 
@@ -58,7 +58,7 @@ export default class PhonesController {
 
     return response.ok({
       message: i18n.t('phone_messages.update.success'),
-      phone,
+      data: phone,
     })
   }
 

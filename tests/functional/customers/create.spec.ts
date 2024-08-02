@@ -18,7 +18,7 @@ test.group('Customers create tests', () => {
     // Assert
     response.assertStatus(201)
     assert.equal(response.body().message, 'Customer registered successfully.')
-    assert.exists(response.body().customer, 'Customer data should be returned')
+    assert.exists(response.body().data, 'Customer data should be returned')
   })
 
   test('should return an error when creating a customer with invalid data', async ({ client }) => {

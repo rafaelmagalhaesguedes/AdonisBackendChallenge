@@ -26,7 +26,7 @@ test.group('Product update tests', (group) => {
     // Assert
     response.assertStatus(200)
     assert.equal(response.body().message, successMessage)
-    assert.exists(response.body().product)
+    assert.exists(response.body().data)
   })
 
   test('update a product with invalid data', async ({ client }) => {

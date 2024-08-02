@@ -10,7 +10,7 @@ test.group('Auth login tests', () => {
     response.assertStatus(200)
     assert.equal(response.body().message, 'Logged in successfully.')
     assert.exists(response.body().token)
-    assert.exists(response.body().user)
+    assert.exists(response.body().data)
   })
 
   test('login with invalid credentials', async ({ client }) => {

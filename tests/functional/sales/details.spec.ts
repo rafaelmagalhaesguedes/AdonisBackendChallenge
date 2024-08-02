@@ -13,10 +13,10 @@ test.group('Sales details tests', () => {
 
     // Assert
     response.assertStatus(200)
-    const { message, sale } = response.body()
+    const { message, data } = response.body()
     assert.exists(message)
     assert.equal(message, 'Sale details retrieved successfully.')
-    assert.exists(sale)
+    assert.exists(data)
   })
 
   test('ensure user cannot see sales details without authentication', async ({ client }) => {

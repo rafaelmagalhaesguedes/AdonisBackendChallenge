@@ -27,7 +27,7 @@ test.group('Phones create tests', (global) => {
     // Assert
     response.assertStatus(201)
     assert.exists(response.body().message, 'Phone registered successfully.')
-    assert.exists(response.body().phone)
+    assert.exists(response.body().data)
   })
 
   test('should not create a new phone with invalid data', async ({ client }) => {

@@ -11,7 +11,7 @@ test.group('Auth register tests', () => {
     // Assert
     response.assertStatus(201)
     assert.equal(response.body().message, 'User registered successfully.')
-    assert.exists(response.body().user)
+    assert.exists(response.body().data)
   })
 
   test('register a new user with invalid data', async ({ client, assert }) => {

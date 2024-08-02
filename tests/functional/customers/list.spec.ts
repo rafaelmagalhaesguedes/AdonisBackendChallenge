@@ -15,7 +15,7 @@ test.group('Customers list tests', () => {
     response.assertStatus(200)
     assert.exists(response.body().message)
     assert.equal(response.body().message, 'Customers retrieved successfully.')
-    assert.isArray(response.body().customers)
+    assert.isArray(response.body().data)
   })
 
   test('should return an error when the user is not authenticated', async ({ client }) => {
@@ -39,8 +39,8 @@ test.group('Customers list tests', () => {
     response.assertStatus(200)
     assert.exists(response.body().message)
     assert.equal(response.body().message, 'Customers retrieved successfully.')
-    assert.isArray(response.body().customers)
-    assert.lengthOf(response.body().customers, 1)
+    assert.isArray(response.body().data)
+    assert.lengthOf(response.body().data, 1)
   })
 
   test('should return a list of customers with invalid pagination', async ({ client, assert }) => {
@@ -56,8 +56,8 @@ test.group('Customers list tests', () => {
     response.assertStatus(200)
     assert.exists(response.body().message)
     assert.equal(response.body().message, 'Customers retrieved successfully.')
-    assert.isArray(response.body().customers)
-    assert.isEmpty(response.body().customers)
+    assert.isArray(response.body().data)
+    assert.isEmpty(response.body().data)
   })
 
   test('should return an error when the user is not authenticated with invalid pagination', async ({

@@ -31,7 +31,7 @@ test.group('Phones update tests', (group) => {
     // Assert
     response.assertStatus(200)
     assert.exists(response.body().message, successMessage)
-    assert.exists(response.body().phone)
+    assert.exists(response.body().data)
   })
 
   test('should not update a phone with invalid data', async ({ client }) => {

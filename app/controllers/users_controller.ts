@@ -22,7 +22,7 @@ export default class UsersController {
 
     return response.ok({
       message: i18n.t('user_messages.detail.success'),
-      user,
+      data: user,
     })
   }
 
@@ -48,7 +48,7 @@ export default class UsersController {
     return response.ok({
       success: {
         message: i18n.t('user_messages.update.success'),
-        user,
+        data: user,
       },
     })
   }

@@ -24,7 +24,7 @@ test.group('Sales create tests', () => {
     response.assertStatus(201)
     assert.exists(response.body().message, 'Message should exist in response')
     assert.equal(response.body().message, 'Sale registered successfully.')
-    assert.exists(response.body().sale, 'Sale object should exist in response')
+    assert.exists(response.body().data, 'Sale object should exist in response')
   })
 
   test('should return an error when creating a sale with invalid data', async ({

@@ -26,7 +26,7 @@ test.group('Address create tests', (global) => {
     response.assertStatus(201)
     assert.exists(response.body().message)
     assert.equal(response.body().message, 'Address registered successfully.')
-    assert.exists(response.body().address)
+    assert.exists(response.body().data)
   })
 
   test('should not create an address with invalid data', async ({ client }) => {

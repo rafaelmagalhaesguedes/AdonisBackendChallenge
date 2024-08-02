@@ -27,7 +27,7 @@ export default class CustomersController {
     return response.ok({
       message: i18n.t('customer_messages.list.success'),
       paginate: customers.meta,
-      customers: customers.data,
+      data: customers.data,
     })
   }
 
@@ -49,7 +49,7 @@ export default class CustomersController {
 
     return response.created({
       message: i18n.t('customer_messages.create.success'),
-      customer: serializeCustomerCreated(customer),
+      data: serializeCustomerCreated(customer),
     })
   }
 
@@ -82,7 +82,7 @@ export default class CustomersController {
 
     return response.ok({
       message: i18n.t('customer_messages.detail.success'),
-      customer: serializeCustomer(customer),
+      data: serializeCustomer(customer),
     })
   }
 
@@ -107,7 +107,7 @@ export default class CustomersController {
 
     return response.ok({
       message: i18n.t('customer_messages.update.success'),
-      customer: customer.serialize(),
+      data: customer.serialize(),
     })
   }
 
