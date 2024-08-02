@@ -212,6 +212,8 @@ Para executar os testes, use o comando:
 
 ### Principais fluxos da aplicação
 
+Os endpoints seguem um padrão de retorno que inclui dois campos principais: mensagem e dados. O campo mensagem contém a descrição da operação realizada, enquanto o campo dados fornece as informações retornadas pela API.
+
 #### Autenticação
 
 - **Login:**
@@ -229,7 +231,7 @@ Para executar os testes, use o comando:
     {
       "message": "Login realizado com sucesso.",
       "token": "oat_NzI2MA.c2pFRzVjTnNzZDVkaGNVM21hVVJsQjkyQlRJdTRuZExINEhfUnhiUDI4ODU2NDIwMjM",
-      "user": {
+      "data": {
         "id": 2,
         "fullName": "User",
         "email": "user@user.com"
@@ -252,7 +254,7 @@ Para executar os testes, use o comando:
     ```json
     {
       "message": "Usuário registrado com sucesso.",
-      "user": {
+      "data": {
         "fullName": "Rafael Guedes",
         "email": "rafael@email.com",
         "createdAt": "2024-07-30T14:47:45.043+00:00",
@@ -279,7 +281,7 @@ Para executar os testes, use o comando:
     ```json
     {
       "message": "Venda registrada com sucesso.",
-      "sale": {
+      "data": {
         "customerId": 2,
         "productId": 1,
         "quantity": 3,
@@ -298,7 +300,7 @@ Para executar os testes, use o comando:
     ```json
     {
       "message": "Detalhes da venda recuperados com sucesso.",
-      "sale": {
+      "data": {
         "id": 146,
         "quantity": 3,
         "unitPrice": "100.00",
@@ -337,7 +339,7 @@ Para executar os testes, use o comando:
     ```json
     {
       "message": "Cliente registrado com sucesso.",
-      "customer": {
+      "data": {
         "name": "Cliente",
         "email": "cliente@email.com",
         "cpf": "000.000.000-00",
@@ -362,7 +364,7 @@ Para executar os testes, use o comando:
     ```json
     {
       "message": "Telefone registrado com sucesso.",
-      "phone": {
+      "data": {
         "number": "00 99999 9999",
         "type": "Trabalho",
         "customerId": 1,
@@ -394,7 +396,7 @@ Para executar os testes, use o comando:
     ```json
     {
       "message": "Endereço registrado com sucesso.",
-      "address": {
+      "data": {
         "street": "Av. Santo Antônio",
         "number": "2",
         "complement": "Casa",
@@ -418,7 +420,7 @@ Para executar os testes, use o comando:
     ```json
     {
       "message": "Detalhes do cliente recuperados com sucesso.",
-      "customer": {
+      "data": {
         "id": 3,
         "name": "Cliente Teste",
         "cpf": "987.654.321-00",
