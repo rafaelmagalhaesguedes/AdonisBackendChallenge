@@ -1,7 +1,10 @@
 import Sale from '#models/sale'
 import db from '@adonisjs/lucid/services/db'
+import redis from '@adonisjs/redis/services/main'
 import { createValidator } from '#validators/sale'
+import logger from '@adonisjs/core/services/logger'
 import type { HttpContext } from '@adonisjs/core/http'
+
 import { serializeSale, serializeSaleCreated } from '#database/serialize/sale_serialize'
 
 export default class SalesController {
@@ -17,12 +20,26 @@ export default class SalesController {
   async index({ request, response, i18n }: HttpContext) {
     const page = request.input('page', 1)
     const limit = request.input('limit', 10)
+    const cacheKey = `sales:page:${page}:limit:${limit}`
+
+    // Check if the data is in the cache
+    const cachedSales = await redis.get(cacheKey)
+    if (cachedSales) {
+      return response.ok(JSON.parse(cachedSales))
+    }
+
+    logger.info(`Checking cache for key: ${cacheKey}`)
 
     const sales = await Sale.query()
       .select('id', 'quantity', 'totalAmount', 'createdAt')
       .orderBy('id', 'asc')
       .paginate(page, limit)
       .then((pagination) => pagination.toJSON())
+
+    logger.info(`Setting cache for key: ${cacheKey}`)
+
+    // Cache the data
+    await redis.set(cacheKey, JSON.stringify(sales), 'EX', 60 * 60) // Cache for 1 hour
 
     return response.ok({
       message: i18n.t('sale_messages.list.success'),
@@ -44,6 +61,8 @@ export default class SalesController {
     const payload = await request.validateUsing(createValidator)
     const { customerId, productId, quantity } = payload
 
+    logger.info(`Creating sale for customer ${customerId} and product ${productId}`)
+
     // Validate if the customer and product exist
     await db.from('customers').where('id', customerId).firstOrFail()
     const { price } = await db.from('products').where('id', productId).firstOrFail()
@@ -54,6 +73,8 @@ export default class SalesController {
     const sale = await db.transaction(async (trx) => {
       return await Sale.create({ ...payload, unitPrice, totalAmount }, { client: trx })
     })
+
+    logger.info(`Sale created successfully: ${JSON.stringify(sale)}`)
 
     return response.created({
       message: i18n.t('sale_messages.create.success'),
