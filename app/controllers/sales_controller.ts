@@ -30,7 +30,7 @@ export default class SalesController {
       .paginate(page, limit)
       .then((pagination) => pagination.toJSON())
 
-    await redis.set(cacheKey, JSON.stringify(sales), 'EX', 3600)
+    await redis.set(cacheKey, JSON.stringify(sales), 'EX', 60 * 60)
 
     return response.ok({
       message: i18n.t('sale_messages.list.success'),
