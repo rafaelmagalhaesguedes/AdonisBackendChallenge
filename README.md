@@ -1,7 +1,7 @@
 # API de Vendas
 
 ## Descrição
-A API de vendas é um sistema desenvolvido para gerenciar vendas, clientes, produtos, endereços e telefones. Este projeto utiliza AdonisJS v6 com Node.js para fornecer uma API robusta e escalável, facilitando a integração e o gerenciamento dos dados necessários.
+API de vendas é um sistema desenvolvido para gerenciar vendas, clientes, produtos, endereços e telefones. Este projeto utiliza AdonisJS v6 com Node.js para fornecer uma API robusta e escalável, facilitando a integração e o gerenciamento dos dados necessários.
 
 ## Funcionalidades
 
