@@ -75,7 +75,7 @@ O projeto foi desenvolvido utilizando o framework AdonisJS versão 6, com o Kit 
     REDIS_PASSWORD=
     ```
 
-4. Rode o banco de dados MySQL e o Redis com Docker (o projeto já possui um Docker Compose configurado):
+4. Rode o projeto com Docker (o projeto já possui um Docker Compose configurado para o backend, banco de dados e redis):
 
     ```
     docker compose up -d
