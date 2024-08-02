@@ -19,7 +19,7 @@ A API de vendas é um sistema desenvolvido para gerenciar vendas, clientes, prod
 
 ## Tecnologias Utilizadas
 
-O projeto foi desenvolvido utilizando o framework AdonisJS versão 6, com o Kit inicial de API personalizado para criar servidores JSON API. O ORM escolhido foi o Lucid, que facilita a manipulação e consulta ao banco de dados e o Japa para a execução de testes funcionais. O banco de dados é o MySQL, configurado e gerenciado através do Docker. O projeto segue o padrão MVC (Model, view and controller), mas sem as views, com a API retornando apenas JSON.
+O projeto foi desenvolvido utilizando o framework AdonisJS versão 6, com o Kit inicial de API personalizado para criar servidores JSON API. O ORM escolhido foi o Lucid, que facilita a manipulação/consulta ao banco de dados e o Japa para a execução de testes funcionais. O banco de dados é o MySQL, configurado e gerenciado através do Docker. Também utilizamos o Redis para trabalhar com cache. O projeto segue o padrão MVC (Model, view and controller), mas sem as views, com a API retornando apenas JSON.
 
 - Node.js
 
@@ -30,6 +30,8 @@ O projeto foi desenvolvido utilizando o framework AdonisJS versão 6, com o Kit 
 - MySQL
 
 - Lucid (ORM)
+
+- Redis (para trabalhar com cache)
 
 - VineJS (para validação de dados das requisições)
 
