@@ -21,13 +21,8 @@ export default class SalesController {
     const limit = request.input('limit', 10)
     const cacheKey = `sales:page:${page}:limit:${limit}`
 
-    // Check if the data is in the cache
     const cachedSales = await redis.get(cacheKey)
-    if (cachedSales) {
-      return response.ok(JSON.parse(cachedSales))
-    }
-
-    logger.info(`Checking cache for key: ${cacheKey}`)
+    if (cachedSales) return response.ok(JSON.parse(cachedSales))
 
     const sales = await Sale.query()
       .select('id', 'quantity', 'totalAmount', 'createdAt')
@@ -35,10 +30,7 @@ export default class SalesController {
       .paginate(page, limit)
       .then((pagination) => pagination.toJSON())
 
-    logger.info(`Setting cache for key: ${cacheKey}`)
-
-    // Cache the data
-    await redis.set(cacheKey, JSON.stringify(sales), 'EX', 60 * 60)
+    await redis.set(cacheKey, JSON.stringify(sales), 'EX', 3600)
 
     return response.ok({
       message: i18n.t('sale_messages.list.success'),
@@ -95,7 +87,6 @@ export default class SalesController {
 
     const cachedSale = await redis.get(cacheKey)
     if (cachedSale) {
-      logger.info(`Cache hit for sale id: ${params.id}`)
       return response.ok({
         message: i18n.t('sale_messages.detail.success'),
         sale: JSON.parse(cachedSale),
@@ -108,8 +99,7 @@ export default class SalesController {
       .preload('customer')
       .firstOrFail()
 
-    await redis.set(cacheKey, JSON.stringify(serializeSale(sale)), 'EX', 3600) // Cache for 1 hour
-    logger.info(`Cache set for sale id: ${params.id}`)
+    await redis.set(cacheKey, JSON.stringify(serializeSale(sale)), 'EX', 3600)
 
     return response.ok({
       message: i18n.t('sale_messages.detail.success'),

@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon'
 import Product from '#models/product'
 import db from '@adonisjs/lucid/services/db'
+import redis from '@adonisjs/redis/services/main'
 import type { HttpContext } from '@adonisjs/core/http'
 import { createValidator, updateValidator } from '#validators/product'
 import { serializeProduct, serializeProductUpdated } from '#database/serialize/product_serialize'
@@ -18,6 +19,10 @@ export default class ProductsController {
   async index({ response, request, i18n }: HttpContext) {
     const page = request.input('page', 1)
     const limit = request.input('limit', 10)
+    const cacheKey = `products:page:${page}:limit:${limit}`
+
+    const cachedProducts = await redis.get(cacheKey)
+    if (cachedProducts) return response.ok(JSON.parse(cachedProducts))
 
     const products = await Product.query()
       .select('id', 'name', 'description', 'price', 'category', 'stock')
@@ -25,6 +30,8 @@ export default class ProductsController {
       .orderBy('name', 'asc')
       .paginate(page, limit)
       .then((pagination) => pagination.toJSON())
+
+    await redis.set(cacheKey, JSON.stringify(products), 'EX', 3600)
 
     return response.ok({
       message: i18n.t('product_messages.list.success'),
@@ -63,10 +70,17 @@ export default class ProductsController {
    * @returns Product JSON with success message and product details.
    */
   async show({ params, response, i18n }: HttpContext) {
+    const cacheKey = `product:${params.id}`
+
+    const cachedProduct = await redis.get(cacheKey)
+    if (cachedProduct) return response.ok(JSON.parse(cachedProduct))
+
     const product = await Product.query()
       .where('id', params.id)
       .whereNull('deletedAt')
       .firstOrFail()
+
+    await redis.set(cacheKey, JSON.stringify(product), 'EX', 3600)
 
     return response.ok({
       message: i18n.t('product_messages.detail.success'),
