@@ -56,7 +56,7 @@ O projeto foi desenvolvido utilizando o framework AdonisJS versão 6, com o Kit 
     npm install
     ```
 
-3. Configure o arquivo .env com as seguintes variáveis ou use as configurações padrão fornecidas:
+3. Configure o arquivo .env com as seguintes variáveis ou fique a vontade para alterar:
 
     ```properties
     TZ=UTC
