@@ -87,9 +87,7 @@ export default class AddressesController {
       })
     }
 
-    await db.transaction(async (trx) => {
-      await address.useTransaction(trx).delete()
-    })
+    await address.delete()
 
     return response.ok({ success: { message: i18n.t('address_messages.delete.success') } })
   }

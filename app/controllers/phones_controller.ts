@@ -82,9 +82,7 @@ export default class PhonesController {
       })
     }
 
-    await db.transaction(async (trx) => {
-      await phone.useTransaction(trx).delete()
-    })
+    await phone.delete()
 
     return response.ok({ success: { message: i18n.t('phone_messages.delete.success') } })
   }
