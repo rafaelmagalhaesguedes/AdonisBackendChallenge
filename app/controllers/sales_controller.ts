@@ -54,14 +54,15 @@ export default class SalesController {
 
     logger.info(`Creating sale for customer ${customerId} and product ${productId}`)
 
-    // Validate if the customer and product exist
-    await db.from('customers').where('id', customerId).firstOrFail()
-    const { price } = await db.from('products').where('id', productId).firstOrFail()
-
-    const unitPrice = Number(price)
-    const totalAmount = Number(price * quantity)
-
     const sale = await db.transaction(async (trx) => {
+      // Validate if the customer and product exist within the transaction
+      await trx.from('customers').where('id', customerId).firstOrFail()
+      const { price } = await trx.from('products').where('id', productId).firstOrFail()
+
+      const unitPrice = Number(price)
+      const totalAmount = Number(price * quantity)
+
+      // Create the sale within the transaction
       return await Sale.create({ ...payload, unitPrice, totalAmount }, { client: trx })
     })
 
