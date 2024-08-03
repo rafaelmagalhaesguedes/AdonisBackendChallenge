@@ -113,126 +113,6 @@ Para executar os testes, use o comando:
   docker exec -it adonis_app node ace test --watch
   ```
 
-## Endpoints da API
-
-### Autenticação
-
-- POST /auth/signup
-  - Registra um novo usuário.
-  - Requer: Nome, email, senha.
-
-- POST /auth/login
-  - Faz login de um usuário e retorna um token de acesso.
-  - Requer: Email, senha.
-
-- DELETE /auth/logout
-  - Faz logout do usuário atual.
-  - Requer: Token de acesso no cabeçalho.
-
-- GET /auth/me
-  - Obtém as informações do usuário autenticado.
-  - Requer: Token de acesso no cabeçalho.
-
-### Usuários
-
-- GET /users/details/:id
-  - Obtém detalhes de um usuário específico.
-  - Requer: Token de acesso no cabeçalho.
-
-- PATCH /users/update/:id
-  - Atualiza informações de um usuário específico.
-  - Requer: Token de acesso no cabeçalho, informações a serem atualizadas.
-
-- DELETE /users/delete/:id
-  - Exclui um usuário específico.
-  - Requer: Token de acesso no cabeçalho.
-
-### Produtos
-
-- GET /products/list
-  - Obtém uma lista de produtos.
-  - Requer: Token de acesso no cabeçalho.
-
-- POST /products/create
-  - Cria um novo produto.
-  - Requer: Token de acesso no cabeçalho, dados do produto.
-
-- GET /products/details/:id
-  - Obtém detalhes de um produto específico.
-  - Requer: Token de acesso no cabeçalho.
-
-- PATCH /products/update/:id
-  - Atualiza um produto específico.
-  - Requer: Token de acesso no cabeçalho, dados a serem atualizados.
-
-- DELETE /products/delete/:id
-  - Exclui um produto específico.
-  - Requer: Token de acesso no cabeçalho.
-
-### Clientes
-
-- GET /customers/list
-  - Obtém uma lista de clientes.
-  - Requer: Token de acesso no cabeçalho.
-
-- POST /customers/create
-  - Cria um novo cliente.
-  - Requer: Token de acesso no cabeçalho, dados do cliente.
-
-- GET /customers/details/:id
-  - Obtém detalhes de um cliente específico.
-  - Requer: Token de acesso no cabeçalho.
-
-- PATCH /customers/update/:id
-  - Atualiza um cliente específico.
-  - Requer: Token de acesso no cabeçalho, dados a serem atualizados.
-
-- DELETE /customers/delete/:id
-  - Exclui um cliente específico.
-  - Requer: Token de acesso no cabeçalho.
-
-### Telefones
-
-- POST /phones/create/:customerId
-  - Adiciona um novo telefone a um cliente.
-  - Requer: Token de acesso no cabeçalho, dados do telefone.
-
-- PATCH /phones/update/:id/customer/:customerId
-  - Atualiza um telefone específico de um cliente.
-  - Requer: Token de acesso no cabeçalho, dados a serem atualizados.
-
-- DELETE /phones/delete/:id/customer/:customerId
-  - Exclui um telefone específico de um cliente.
-  -Requer: Token de acesso no cabeçalho.
-
-### Endereços
-
-- POST /address/create/:customerId
-  - Adiciona um novo endereço a um cliente.
-  - Requer: Token de acesso no cabeçalho, dados do endereço.
-
-- PATCH /address/update/:id/customer/:customerId
-  - Atualiza um endereço específico de um cliente.
-  - Requer: Token de acesso no cabeçalho, dados a serem atualizados.
-
-- DELETE /address/delete/:id/customer/:customerId
-  - Exclui um endereço específico de um cliente.
-  - Requer: Token de acesso no cabeçalho.
-
-### Vendas
-
-- GET /sales/list
-  - Obtém uma lista de vendas.
-  - Requer: Token de acesso no cabeçalho.
-
-- POST /sales/create
-  - Cria uma nova venda.
-  - Requer: Token de acesso no cabeçalho, dados da venda.
-
-- GET /sales/details/:id
-  - Obtém detalhes de uma venda específica.
-  - Requer: Token de acesso no cabeçalho.
-
 ### Principais fluxos da aplicação
 
 Os endpoints seguem um padrão de retorno que inclui dois campos principais: mensagem e dados. O campo mensagem contém a descrição da operação realizada, enquanto o campo dados fornece as informações retornadas pela API.
@@ -484,3 +364,123 @@ Os endpoints seguem um padrão de retorno que inclui dois campos principais: men
       }
     }
     ```
+
+## Endpoints da API
+
+### Autenticação
+
+- POST /auth/signup
+  - Registra um novo usuário.
+  - Requer: Nome, email, senha.
+
+- POST /auth/login
+  - Faz login de um usuário e retorna um token de acesso.
+  - Requer: Email, senha.
+
+- DELETE /auth/logout
+  - Faz logout do usuário atual.
+  - Requer: Token de acesso no cabeçalho.
+
+- GET /auth/me
+  - Obtém as informações do usuário autenticado.
+  - Requer: Token de acesso no cabeçalho.
+
+### Usuários
+
+- GET /users/details/:id
+  - Obtém detalhes de um usuário específico.
+  - Requer: Token de acesso no cabeçalho.
+
+- PATCH /users/update/:id
+  - Atualiza informações de um usuário específico.
+  - Requer: Token de acesso no cabeçalho, informações a serem atualizadas.
+
+- DELETE /users/delete/:id
+  - Exclui um usuário específico.
+  - Requer: Token de acesso no cabeçalho.
+
+### Produtos
+
+- GET /products/list
+  - Obtém uma lista de produtos.
+  - Requer: Token de acesso no cabeçalho.
+
+- POST /products/create
+  - Cria um novo produto.
+  - Requer: Token de acesso no cabeçalho, dados do produto.
+
+- GET /products/details/:id
+  - Obtém detalhes de um produto específico.
+  - Requer: Token de acesso no cabeçalho.
+
+- PATCH /products/update/:id
+  - Atualiza um produto específico.
+  - Requer: Token de acesso no cabeçalho, dados a serem atualizados.
+
+- DELETE /products/delete/:id
+  - Exclui um produto específico.
+  - Requer: Token de acesso no cabeçalho.
+
+### Clientes
+
+- GET /customers/list
+  - Obtém uma lista de clientes.
+  - Requer: Token de acesso no cabeçalho.
+
+- POST /customers/create
+  - Cria um novo cliente.
+  - Requer: Token de acesso no cabeçalho, dados do cliente.
+
+- GET /customers/details/:id
+  - Obtém detalhes de um cliente específico.
+  - Requer: Token de acesso no cabeçalho.
+
+- PATCH /customers/update/:id
+  - Atualiza um cliente específico.
+  - Requer: Token de acesso no cabeçalho, dados a serem atualizados.
+
+- DELETE /customers/delete/:id
+  - Exclui um cliente específico.
+  - Requer: Token de acesso no cabeçalho.
+
+### Telefones
+
+- POST /phones/create/:customerId
+  - Adiciona um novo telefone a um cliente.
+  - Requer: Token de acesso no cabeçalho, dados do telefone.
+
+- PATCH /phones/update/:id/customer/:customerId
+  - Atualiza um telefone específico de um cliente.
+  - Requer: Token de acesso no cabeçalho, dados a serem atualizados.
+
+- DELETE /phones/delete/:id/customer/:customerId
+  - Exclui um telefone específico de um cliente.
+  - Requer: Token de acesso no cabeçalho.
+
+### Endereços
+
+- POST /address/create/:customerId
+  - Adiciona um novo endereço a um cliente.
+  - Requer: Token de acesso no cabeçalho, dados do endereço.
+
+- PATCH /address/update/:id/customer/:customerId
+  - Atualiza um endereço específico de um cliente.
+  - Requer: Token de acesso no cabeçalho, dados a serem atualizados.
+
+- DELETE /address/delete/:id/customer/:customerId
+  - Exclui um endereço específico de um cliente.
+  - Requer: Token de acesso no cabeçalho.
+
+### Vendas
+
+- GET /sales/list
+  - Obtém uma lista de vendas.
+  - Requer: Token de acesso no cabeçalho.
+
+- POST /sales/create
+  - Cria uma nova venda.
+  - Requer: Token de acesso no cabeçalho, dados da venda.
+
+- GET /sales/details/:id
+  - Obtém detalhes de uma venda específica.
+  - Requer: Token de acesso no cabeçalho.
