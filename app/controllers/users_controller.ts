@@ -41,8 +41,8 @@ export default class UsersController {
     const user = await User.findOrFail(params.id)
 
     await db.transaction(async (trx) => {
-      user.merge(payload)
-      await user.useTransaction(trx).save()
+      user.useTransaction(trx).merge(payload)
+      await user.save()
     })
 
     return response.ok({

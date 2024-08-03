@@ -107,8 +107,8 @@ export default class ProductsController {
     }
 
     await db.transaction(async (trx) => {
-      product.merge(payload)
-      await product.useTransaction(trx).save()
+      product.useTransaction(trx).merge(payload)
+      await product.save()
     })
 
     return response.ok({

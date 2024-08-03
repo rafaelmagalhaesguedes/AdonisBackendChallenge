@@ -99,8 +99,8 @@ export default class CustomersController {
     const payload = await request.validateUsing(updateValidator)
 
     await db.transaction(async (trx) => {
-      customer.merge(payload)
-      await customer.useTransaction(trx).save()
+      customer.useTransaction(trx).merge(payload)
+      await customer.save()
     })
 
     return response.ok({

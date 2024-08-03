@@ -50,8 +50,8 @@ export default class PhonesController {
     }
 
     await db.transaction(async (trx) => {
-      phone.merge(payload)
-      await phone.useTransaction(trx).save()
+      phone.useTransaction(trx).merge(payload)
+      await phone.save()
     })
 
     await phone.refresh()

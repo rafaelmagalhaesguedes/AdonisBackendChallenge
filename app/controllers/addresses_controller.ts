@@ -53,8 +53,8 @@ export default class AddressesController {
     }
 
     await db.transaction(async (trx) => {
-      address.merge(payload)
-      await address.useTransaction(trx).save()
+      address.useTransaction(trx).merge(payload)
+      await address.save()
     })
 
     address.refresh()
