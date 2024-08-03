@@ -65,9 +65,7 @@ export default class UsersController {
   async destroy({ params, response, i18n }: HttpContext) {
     const user = await User.findOrFail(params.id)
 
-    await db.transaction(async (trx) => {
-      await user.useTransaction(trx).delete()
-    })
+    await user.delete()
 
     return response.ok({ success: { message: i18n.t('user_messages.delete.success') } })
   }
