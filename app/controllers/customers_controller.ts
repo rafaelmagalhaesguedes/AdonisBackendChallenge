@@ -43,9 +43,7 @@ export default class CustomersController {
   async store({ request, response, i18n }: HttpContext) {
     const payload = await request.validateUsing(createValidator)
 
-    const customer = await db.transaction(async (trx) => {
-      return await Customer.create(payload, { client: trx })
-    })
+    const customer = await Customer.create(payload)
 
     return response.created({
       message: i18n.t('customer_messages.create.success'),
