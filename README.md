@@ -95,20 +95,19 @@ O projeto foi desenvolvido utilizando o framework AdonisJS versão 6, com o Kit 
 
 ## Uso
 
-### Executando o Servidor
-
-Para iniciar o servidor, use o comando:
-    
-  ```
-  docker exec -it adonis_app node ace serve --watch
-  ```
-
 **A aplicação estará disponível na porta** http://localhost:3333
 
 ### Executando testes funcionais
 
-Para executar os testes, use o comando:
+Para executar os testes, use os comandos:
+
+  - inicie o servidor dentro do container:
     
+  ```
+  docker exec -it adonis_app node ace serve --watch
+  ```
+  
+  - rode os testes:
   ```
   docker exec -it adonis_app node ace test --watch
   ```
