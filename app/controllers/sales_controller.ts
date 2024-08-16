@@ -68,6 +68,12 @@ export default class SalesController {
 
     logger.info(`Sale created successfully: ${JSON.stringify(sale)}`)
 
+    // Invalidate the cache for the sales list
+    const keys = await redis.keys('sales:page:*:limit:*')
+    if (keys.length > 0) {
+      await redis.del(keys)
+    }
+
     return response.created({
       message: i18n.t('sale_messages.create.success'),
       data: serializeSaleCreated(sale),
