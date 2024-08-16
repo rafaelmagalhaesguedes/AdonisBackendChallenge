@@ -54,6 +54,9 @@ export default class ProductsController {
 
     const product = await Product.create(payload)
 
+    // Invalidate all product pages cache
+    await this.invalidateProductPagesCache()
+
     return response.created({
       message: i18n.t('product_messages.create.success'),
       data: serializeProduct(product),
@@ -111,6 +114,10 @@ export default class ProductsController {
       await product.save()
     })
 
+    // Invalidate cache for the specific product and all product pages
+    await redis.del(`product:${params.id}`)
+    await this.invalidateProductPagesCache()
+
     return response.ok({
       message: i18n.t('product_messages.update.success'),
       data: serializeProductUpdated(product),
@@ -138,6 +145,18 @@ export default class ProductsController {
       await product.useTransaction(trx).save()
     })
 
+    // Invalidate cache for the specific product and all product pages
+    await redis.del(`product:${params.id}`)
+    await this.invalidateProductPagesCache()
+
     return response.ok({ success: { message: i18n.t('product_messages.delete.success') } })
+  }
+
+  // Helper method to invalidate all product pages cache
+  private async invalidateProductPagesCache() {
+    const keys = await redis.keys('products:page:*')
+    if (keys.length > 0) {
+      await redis.del(keys)
+    }
   }
 }
