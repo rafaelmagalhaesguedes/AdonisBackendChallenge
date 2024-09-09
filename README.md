@@ -1,25 +1,26 @@
-# API de Vendas
+# Sales API
 
-## Descrição
-API de vendas é um sistema desenvolvido para gerenciar vendas, clientes, produtos, endereços e telefones. Este projeto utiliza AdonisJS v6 com Node.js para fornecer uma API robusta e escalável, facilitando a integração e o gerenciamento dos dados necessários.
+## Description
 
-## Funcionalidades
+The Sales API is a system designed to manage sales, customers, products, addresses, and phone numbers. This project uses AdonisJS v6 with Node.js to provide a robust and scalable API, facilitating integration and management of the necessary data.
 
-- **Gerenciamento de Clientes**: Criação, atualização, visualização e exclusão de clientes.
+## Features
 
-- **Gerenciamento de Produtos**: Criação, atualização, visualização e exclusão de produtos.
+- **Customer Management:** Creation, updating, viewing, and deletion of customers.
 
-- **Gerenciamento de Vendas**: Registro de vendas com cálculo automático de valores totais.
+- **Product Management:** Creation, updating, viewing, and deletion of products.
 
-- **Gerenciamento de Endereços**: Adição e atualização de endereços de clientes.
+- **Sales Management:** Recording of sales with automatic total value calculation.
 
-- **Gerenciamento de Telefones**: Adição e atualização de telefones de clientes.
+- **Address Management:** Addition and updating of customer addresses.
 
-- **Autenticação**: Registro, login e logout de usuários com gerenciamento de tokens de acesso.
+- **Phone Management:** Addition and updating of customer phone numbers.
 
-## Tecnologias Utilizadas
+- **Authentication:** User registration, login, and logout with access token management.
 
-O projeto foi desenvolvido utilizando o framework AdonisJS versão 6, com o Kit inicial de API personalizado para criar servidores JSON API. O ORM escolhido foi o Lucid, que facilita a manipulação/consulta ao banco de dados e o Japa para a execução de testes funcionais. O banco de dados é o MySQL, configurado e gerenciado através do Docker. Também utilizamos o Redis para trabalhar com cache. O projeto segue o padrão MVC (Model, view and controller), mas sem as views, com a API retornando apenas JSON.
+## Technologies Used
+
+The project was developed using AdonisJS version 6, with a custom API starter kit to create JSON API servers. The chosen ORM is Lucid, which facilitates database manipulation/queries, and Japa for functional testing. The database is MySQL, configured and managed via Docker. Redis is also used for caching. The project follows the MVC (Model, View, and Controller) pattern, but without views, with the API returning only JSON.
 
 - Node.js
 
@@ -31,32 +32,32 @@ O projeto foi desenvolvido utilizando o framework AdonisJS versão 6, com o Kit 
 
 - Lucid (ORM)
 
-- Redis (para trabalhar com cache)
+- Redis (for caching)
 
-- VineJS (para validação de dados das requisições)
+- VineJS (for request data validation)
 
-- i18n (para internacionalização das mensagens em inglês e ou português)
+- i18n (for internationalization of messages in English and Portuguese)
 
-- Japa (para testes funcionais)
+- Japa (for functional testing)
 
 - Docker
 
-## Instalação
+## Installation
 
-1. Clone o repositório:
+1. Clone the repository:
 
     ```
-    git clone https://github.com/rafaelmagalhaesguedes/api-de-vendas.git
-    cd api-de-vendas
+    git clone https://github.com/rafaelmagalhaesguedes/AdonisBackendChallenge.git
+    cd AdonisBackendChallenge
     ```
 
-2. Instale as dependências:
+2. Install the dependencies:
     
     ```
     npm install
     ```
 
-3. Configure o arquivo .env com as seguintes variáveis ou fique a vontade para alterar:
+3. Configure the .env file with the following variables or feel free to modify:
 
     ```properties
     TZ=UTC
@@ -75,19 +76,19 @@ O projeto foi desenvolvido utilizando o framework AdonisJS versão 6, com o Kit 
     REDIS_PASSWORD=
     ```
 
-4. Rode o projeto com Docker (o projeto já possui um Docker Compose configurado para o backend, banco de dados e redis):
-
+4. Run the project with Docker (the project already has a Docker Compose setup for the backend, database, and Redis):
+   
     ```
     docker compose up -d
     ```
 
-5. Rode as migrações para configurar o banco de dados:
+5. Run migrations to set up the database:
 
     ```
     docker exec -it adonis_app node ace migration:run
     ```
 
-6. Rode os semeadores (seeders) para inserir dados iniciais:
+6. Run seeders to insert initial data:
 
     ```
     docker exec -it adonis_app node ace db:seed
@@ -95,28 +96,28 @@ O projeto foi desenvolvido utilizando o framework AdonisJS versão 6, com o Kit 
 
 ## Uso
 
-**A aplicação estará disponível na porta** http://localhost:3333
+The application will be available at http://localhost:3333
 
-### Executando testes funcionais
+### Running Functional Tests
 
-Para executar os testes, use os comandos:
+To run the tests, use the commands:
 
-  - inicie o servidor dentro do container:
+- Start the server inside the container:
     
   ```
   docker exec -it adonis_app node ace serve --watch
   ```
   
-  - rode os testes:
+  - run the tests:
   ```
   docker exec -it adonis_app node ace test --watch
   ```
 
-### Principais fluxos da aplicação
+### Main Application Flows
 
-Os endpoints seguem um padrão de retorno que inclui dois campos principais: mensagem e dados. O campo mensagem contém a descrição da operação realizada, enquanto o campo dados fornece as informações retornadas pela API.
+The endpoints follow a response pattern that includes two main fields: message and data. The message field contains the description of the operation performed, while the data field provides the information returned by the API.
 
-#### Autenticação
+#### Authentication
 
 - **Login:**
   - **POST /auth/login**
@@ -131,7 +132,7 @@ Os endpoints seguem um padrão de retorno que inclui dois campos principais: men
   - Response:
     ```json
     {
-      "message": "Login realizado com sucesso.",
+      "message": "Login successful.",
       "token": "oat_NzI2MA.c2pFRzVjTnNzZDVkaGNVM21hVVJsQjkyQlRJdTRuZExINEhfUnhiUDI4ODU2NDIwMjM",
       "data": {
         "id": 2,
@@ -141,7 +142,7 @@ Os endpoints seguem um padrão de retorno que inclui dois campos principais: men
     }
     ```
 
-- **Registro de usuários:**
+- **User registration:**
   - **POST /auth/signup**
 
   - Request Body:
@@ -149,13 +150,13 @@ Os endpoints seguem um padrão de retorno que inclui dois campos principais: men
     {
       "fullName": "Rafael Guedes",
       "email": "rafael@email.com",
-      "password": "minha_senha"
+      "password": "my_password"
     }
     ```
   - Response:
     ```json
     {
-      "message": "Usuário registrado com sucesso.",
+      "message": "User registered successfully.",
       "data": {
         "fullName": "Rafael Guedes",
         "email": "rafael@email.com",
@@ -165,9 +166,9 @@ Os endpoints seguem um padrão de retorno que inclui dois campos principais: men
     }
     ```
 
-#### Venda
+#### Sales
 
-- **Registrar uma venda:**
+- **Register a sale:**
   - **POST /sales/create**
 
   - Request Body:
@@ -182,7 +183,7 @@ Os endpoints seguem um padrão de retorno que inclui dois campos principais: men
   - Response:
     ```json
     {
-      "message": "Venda registrada com sucesso.",
+      "message": "Sale recorded successfully.",
       "data": {
         "customerId": 2,
         "productId": 1,
@@ -195,13 +196,13 @@ Os endpoints seguem um padrão de retorno que inclui dois campos principais: men
     }
     ```
 
-- **Detalhes de uma venda:**
-  - **POST /sales/details/id-da-venda**
+- **Sale details:**
+  - **POST /sales/details/sale-id**
 
   - Response:
     ```json
     {
-      "message": "Detalhes da venda recuperados com sucesso.",
+      "message": "Sale details retrieved successfully.",
       "data": {
         "id": 146,
         "quantity": 3,
@@ -223,16 +224,16 @@ Os endpoints seguem um padrão de retorno que inclui dois campos principais: men
     }
     ```
 
-#### Cliente
+#### Customer
 
-- **Registrar um cliente:**
+- **Register a customer:**
   - **POST /sales/create**
 
   - Request Body:
     ```json
     {
-      "name": "Cliente",
-      "email": "cliente@email.com",
+      "name": "Customer",
+      "email": "customer@email.com",
       "cpf": "000.000.000-00"
     }
     ```
@@ -240,10 +241,10 @@ Os endpoints seguem um padrão de retorno que inclui dois campos principais: men
   - Response:
     ```json
     {
-      "message": "Cliente registrado com sucesso.",
+      "message": "Customer registered successfully.",
       "data": {
-        "name": "Cliente",
-        "email": "cliente@email.com",
+        "name": "Customer",
+        "email": "customer@email.com",
         "cpf": "000.000.000-00",
         "createdAt": "2024-07-30T14:57:27.547+00:00",
         "id": 1621
@@ -251,24 +252,24 @@ Os endpoints seguem um padrão de retorno que inclui dois campos principais: men
     }
     ```
 
-- **Registrar telefone do cliente:**
-  - **POST /phones/create/id-do-cliente**
+- **Register customer phone:**
+  - **POST /phones/create/customer-id**
 
   - Request Body:
     ```json
     {
       "number": "00 99999 9999",
-      "type": "Trabalho"
+      "type": "Work"
     }
     ```
     
   - Response:
     ```json
     {
-      "message": "Telefone registrado com sucesso.",
+      "message": "Phone registered successfully.",
       "data": {
         "number": "00 99999 9999",
-        "type": "Trabalho",
+        "type": "Work",
         "customerId": 1,
         "createdAt": "2024-07-30T15:00:25.959+00:00",
         "updatedAt": "2024-07-30T15:00:25.959+00:00",
@@ -277,36 +278,36 @@ Os endpoints seguem um padrão de retorno que inclui dois campos principais: men
     }
     ```
 
-- **Registrar endereço do cliente:**
-  - **POST /address/create/id-do-cliente**
+- **Register customer address:**
+  - **POST /address/create/customer-id**
 
   - Request Body:
     ```json
     {
       "street": "Av. Santo Antônio",
       "number": "2",
-      "complement": "Casa",
+      "complement": "House",
       "neighborhood": "Lourdes",
       "city": "Belo Horizonte",
       "state": "Minas Gerais",
       "zipCode": "12233333",
-      "country": "Brasil"
+      "country": "Brazil"
     }
     ```
 
   - Response:
     ```json
     {
-      "message": "Endereço registrado com sucesso.",
+      "message": "Address registered successfully.",
       "data": {
         "street": "Av. Santo Antônio",
         "number": "2",
-        "complement": "Casa",
+        "complement": "House",
         "neighborhood": "Lourdes",
         "city": "Belo Horizonte",
         "state": "Minas Gerais",
         "zipCode": "12233333",
-        "country": "Brasil",
+        "country": "Brazil",
         "customerId": 1,
         "createdAt": "2024-07-30T15:02:45.971+00:00",
         "updatedAt": "2024-07-30T15:02:45.971+00:00",
@@ -315,27 +316,27 @@ Os endpoints seguem um padrão de retorno que inclui dois campos principais: men
     }
     ```
 
-- **Detalhes do cliente:**
-  - **GET /customers/details/id-do-cliente**
+- **Customer details:**
+  - **GET /customers/details/customer-id**
 
   - Response:
     ```json
     {
-      "message": "Detalhes do cliente recuperados com sucesso.",
+      "message": "Customer details retrieved successfully.",
       "data": {
         "id": 3,
-        "name": "Cliente Teste",
+        "name": "Customer Teste",
         "cpf": "987.654.321-00",
-        "email": "client2@client.com",
+        "email": "customer@customer.com",
         "addresses": {
-          "street": "Rua das Flores",
+          "street": "Av. Paulista",
           "number": "123",
-          "complement": "Apto 123",
-          "neighborhood": "Centro",
+          "complement": "House",
+          "neighborhood": "São Paulo",
           "city": "São Paulo",
           "state": "SP",
           "zipCode": "12345-678",
-          "country": "Brasil"
+          "country": "Brazil"
         },
         "phones": [
           {
@@ -363,123 +364,3 @@ Os endpoints seguem um padrão de retorno que inclui dois campos principais: men
       }
     }
     ```
-
-## Endpoints da API
-
-### Autenticação
-
-- POST /auth/signup
-  - Registra um novo usuário.
-  - Requer: Nome, email, senha.
-
-- POST /auth/login
-  - Faz login de um usuário e retorna um token de acesso.
-  - Requer: Email, senha.
-
-- DELETE /auth/logout
-  - Faz logout do usuário atual.
-  - Requer: Token de acesso no cabeçalho.
-
-- GET /auth/me
-  - Obtém as informações do usuário autenticado.
-  - Requer: Token de acesso no cabeçalho.
-
-### Usuários
-
-- GET /users/details/:id
-  - Obtém detalhes de um usuário específico.
-  - Requer: Token de acesso no cabeçalho.
-
-- PATCH /users/update/:id
-  - Atualiza informações de um usuário específico.
-  - Requer: Token de acesso no cabeçalho, informações a serem atualizadas.
-
-- DELETE /users/delete/:id
-  - Exclui um usuário específico.
-  - Requer: Token de acesso no cabeçalho.
-
-### Produtos
-
-- GET /products/list
-  - Obtém uma lista de produtos.
-  - Requer: Token de acesso no cabeçalho.
-
-- POST /products/create
-  - Cria um novo produto.
-  - Requer: Token de acesso no cabeçalho, dados do produto.
-
-- GET /products/details/:id
-  - Obtém detalhes de um produto específico.
-  - Requer: Token de acesso no cabeçalho.
-
-- PATCH /products/update/:id
-  - Atualiza um produto específico.
-  - Requer: Token de acesso no cabeçalho, dados a serem atualizados.
-
-- DELETE /products/delete/:id
-  - Exclui um produto específico.
-  - Requer: Token de acesso no cabeçalho.
-
-### Clientes
-
-- GET /customers/list
-  - Obtém uma lista de clientes.
-  - Requer: Token de acesso no cabeçalho.
-
-- POST /customers/create
-  - Cria um novo cliente.
-  - Requer: Token de acesso no cabeçalho, dados do cliente.
-
-- GET /customers/details/:id
-  - Obtém detalhes de um cliente específico.
-  - Requer: Token de acesso no cabeçalho.
-
-- PATCH /customers/update/:id
-  - Atualiza um cliente específico.
-  - Requer: Token de acesso no cabeçalho, dados a serem atualizados.
-
-- DELETE /customers/delete/:id
-  - Exclui um cliente específico.
-  - Requer: Token de acesso no cabeçalho.
-
-### Telefones
-
-- POST /phones/create/:customerId
-  - Adiciona um novo telefone a um cliente.
-  - Requer: Token de acesso no cabeçalho, dados do telefone.
-
-- PATCH /phones/update/:id/customer/:customerId
-  - Atualiza um telefone específico de um cliente.
-  - Requer: Token de acesso no cabeçalho, dados a serem atualizados.
-
-- DELETE /phones/delete/:id/customer/:customerId
-  - Exclui um telefone específico de um cliente.
-  - Requer: Token de acesso no cabeçalho.
-
-### Endereços
-
-- POST /address/create/:customerId
-  - Adiciona um novo endereço a um cliente.
-  - Requer: Token de acesso no cabeçalho, dados do endereço.
-
-- PATCH /address/update/:id/customer/:customerId
-  - Atualiza um endereço específico de um cliente.
-  - Requer: Token de acesso no cabeçalho, dados a serem atualizados.
-
-- DELETE /address/delete/:id/customer/:customerId
-  - Exclui um endereço específico de um cliente.
-  - Requer: Token de acesso no cabeçalho.
-
-### Vendas
-
-- GET /sales/list
-  - Obtém uma lista de vendas.
-  - Requer: Token de acesso no cabeçalho.
-
-- POST /sales/create
-  - Cria uma nova venda.
-  - Requer: Token de acesso no cabeçalho, dados da venda.
-
-- GET /sales/details/:id
-  - Obtém detalhes de uma venda específica.
-  - Requer: Token de acesso no cabeçalho.
